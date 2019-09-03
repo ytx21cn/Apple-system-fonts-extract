@@ -2,7 +2,7 @@ import glob, subprocess as sp
 from os.path import basename, dirname, splitext, abspath
 
 from paths import makedirs, remove, pkgExtractedPath, fontPath
-from unpack_7z import unpack7z
+from unpack import unpack7z
 
 def unpackPayload(payloadFile, outputDir='.'):
     copyTarget = '%s.7z.gz' % payloadFile

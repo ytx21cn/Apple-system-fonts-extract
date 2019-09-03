@@ -3,7 +3,7 @@ from os import chdir
 from os.path import dirname, basename, abspath
 
 from paths import makedirs, imgExtractedPath, pkgExtractedPath
-
+from unpack import unpackXar
 
 def main():
     baseDir = abspath('.')
@@ -22,11 +22,7 @@ def main():
         sp.call(['cp', '-r', file, fontDir])
         fileToExtract = '%s/%s' % (fontDir, basename(file))
         chdir(fontDir)
-        try:
-            sp.call(['xar', '-xf', fileToExtract])
-        except BaseException:
-            print('[ERROR] Unable to extract file: %s\nPlease make sure that the file exists, and install xar from http://bit.ly/archive-xar.' % abspath(fileToExtract))
-            exit(1)
+        unpackXar(fileToExtract)
         chdir(baseDir)
 
         pass
