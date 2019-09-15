@@ -9,7 +9,7 @@ def unpackPayload(payloadFile, outputDir='.'):
     sp.call(['cp', payloadFile, copyTarget])
     sp.call(['gunzip', copyTarget])
     unpack7z('%s.7z' % payloadFile, outputDir)
-    sp.call(['rm', '%s.7z' % payloadFile])
+    remove('%s.7z' % payloadFile)
 
 def main():
     payloadFiles = glob.glob('%s/**/Payload' % pkgExtractedPath, recursive=True)

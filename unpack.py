@@ -15,7 +15,7 @@ def unpackXar(file):
     try:
         sp.call(['xar', '-xf', file])
     except BaseException:
-        print('[ERROR] Unable to extract file: %s\nPlease make sure that the file exists, and install xar from http://bit.ly/archive-xar.' % abspath(file))
+        print('[ERROR] Unable to extract file: %s\nPlease make sure that the file exists, and install xar from https://bit.ly/archive-xar.' % abspath(file))
         clean_up.main()
         exit(1)
 

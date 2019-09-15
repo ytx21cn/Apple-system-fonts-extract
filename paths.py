@@ -1,4 +1,5 @@
 import subprocess as sp
+from os.path import abspath
 
 def makedirs(path):
     sp.call(['mkdir', '-p', path])
@@ -6,12 +7,12 @@ def makedirs(path):
 def remove(path):
     sp.call(['rm', '-r', path])
 
-sourceFilesPath = './dmg'
-convertedFilesPath = './img'
+sourceFilesPath = abspath('./dmg')
+convertedFilesPath = abspath('./img')
 
-imgExtractedPath = './img_extracted'
-pkgExtractedPath = './pkg_extracted'
+imgExtractedPath = abspath('./img_extracted')
+pkgExtractedPath = abspath('./pkg_extracted')
 
-fontPath = './otf'
+fontPath = abspath('./otf')
 
 
