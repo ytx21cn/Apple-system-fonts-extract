@@ -2,7 +2,7 @@ import glob
 from os.path import dirname, basename, abspath
 from shutil import copyfile
 
-from unpack import unpack_xar
+from unpack import unpack_7z
 from path_utils import safe_mkdir
 from paths import img_extracted_path, pkg_extracted_path
 
@@ -25,7 +25,7 @@ def main():
         # and extract it there
         dst_file = '%s/%s' % (font_dir, basename(file))
         copyfile(src=file, dst=dst_file)
-        unpack_xar(dst_file, output_dir=font_dir)
+        unpack_7z(dst_file, output_dir=font_dir)
 
 
 if __name__ == '__main__':

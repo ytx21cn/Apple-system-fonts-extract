@@ -6,9 +6,15 @@ import rm_extracted
 
 # file extraction
 
-def dmg2img(file, converted_file=None):
+def dmg2img(file: str, converted_file: str = None):
+    """
+    Convert dmg to img.
+    This function uses the 'dmg2img' command from the 'dmg2img' package.
+    """
+
+    file = abspath(str(file))
     if converted_file:
-        converted_file = str(converted_file)
+        converted_file = abspath(str(converted_file))
 
     try:
         sp.call(['dmg2img', file, converted_file])
@@ -20,21 +26,14 @@ def dmg2img(file, converted_file=None):
         exit(1)
 
 
-def unpack_xar(file: str, output_dir: str = '.'):
+def unpack_7z(file: str, output_dir: str = '.'):
+    """
+    Unpack 7z files.
+    This function uses the '7z' command in 'p7zip-full' package.
+    """
+
     file = abspath(str(file))
     output_dir = abspath(str(output_dir))
-    try:
-        sp.call(['xar', '-xf', file], cwd=output_dir)
-    except:
-        print('[ERROR] Unable to extract file: %s\n'
-              'Please make sure that the file exists, '
-              'and install xar from https://bit.ly/archive-xar.' % file)
-        rm_extracted.main()
-        exit(1)
-
-
-def unpack_7z(file, output_dir='.'):
-    output_dir = str(output_dir)
     try:
         sp.call(['7z', 'x', file, '-y', '-o%s' % output_dir])
     except:
