@@ -11,6 +11,12 @@ from path_utils import safe_mkdir
 def main():
     """
     This program extracts the Apple fonts (*.otf) from the dmg disk images.
+    Apple fonts:
+    1. SF Pro
+    2. SF Compact
+    3. SF Mono
+    4. New York
+    Download link: https://developer.apple.com/fonts/
     """
     dmg_files = glob.glob('%s/**/*.dmg' % dmg_path, recursive=True)
     for dmg_file in dmg_files:
