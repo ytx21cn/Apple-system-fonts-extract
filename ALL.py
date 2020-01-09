@@ -22,7 +22,7 @@ def main():
             # Then, for each img:
 
             # 1. unpack img, then we can see a single pkg file
-            img_extracted_dir = unpack_7z(img_file, output_dir=temp_dir)
+            img_extracted_dir = unpack_7z(img_file)
             pkg_file = glob.glob('%s/**/*.pkg' % img_extracted_dir, recursive=True)[0]
 
             # 2. extract the pkg file, then we can see a single 'Payload~' file
