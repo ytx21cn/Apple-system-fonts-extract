@@ -27,7 +27,7 @@ def main():
 
             # 2. extract the pkg file, then we can see a single 'Payload~' file
             pkg_extracted_dir = unpack_7z(pkg_file)
-            payload_file = glob.glob('%s/**/Payload~*' % pkg_extracted_dir, recursive=True)[0]
+            payload_file = glob.glob('%s/**/Payload~' % pkg_extracted_dir, recursive=True)[0]
 
             # 3. extract the 'Payload~' file, then we can see the font files in otf format
             fonts_dir = unpack_7z(payload_file)
