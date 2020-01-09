@@ -9,6 +9,9 @@ from path_utils import safe_mkdir
 
 
 def main():
+    """
+    This program extracts the Apple fonts (*.otf) from the dmg disk images.
+    """
     dmg_files = glob.glob('%s/**/*.dmg' % dmg_path, recursive=True)
     for dmg_file in dmg_files:
         with TemporaryDirectory() as temp_dir:

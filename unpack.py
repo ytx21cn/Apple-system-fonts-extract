@@ -41,8 +41,8 @@ def unpack_7z(archive: str, output_dir: str = None):
     Note: This function uses the '7z' command in 'p7zip-full' package.
 
     :param archive: the path to the archive to be extracted
-    :param output_dir:
-    :return:
+    :param output_dir: the directory to output the extracted content
+    :return: the actual output directory
     """
 
     archive = abspath(str(archive))
