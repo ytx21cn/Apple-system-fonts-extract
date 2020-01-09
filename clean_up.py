@@ -1,11 +1,9 @@
-import rm_extracted
 from path_utils import safe_remove
-from paths import font_path
+from paths import otf_path
 
 
 def main():
-    safe_remove(font_path)
-    rm_extracted.main()
+    safe_remove(otf_path)
 
 
 if __name__ == '__main__':

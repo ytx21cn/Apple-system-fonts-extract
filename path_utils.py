@@ -1,13 +1,10 @@
-from os import mkdir
+from os import makedirs
 from shutil import rmtree
 
 
 def safe_mkdir(path: str):
     path = str(path)
-    try:
-        mkdir(path)
-    except FileExistsError:
-        pass
+    makedirs(path, exist_ok=True)
 
 
 def safe_remove(path: str):
