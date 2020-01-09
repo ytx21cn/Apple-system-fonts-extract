@@ -41,11 +41,5 @@ def main():
                 copy(src=font_file, dst=target_dir)
 
 
-
-
-
-
-
-
 if __name__ == '__main__':
     main()
