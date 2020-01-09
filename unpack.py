@@ -37,4 +37,3 @@ def unpack_7z(file, output_dir='.'):
         print('[ERROR] unable to extract file: %s\nPlease install the p7zip-full package.' % abspath(file))
         rm_extracted.main()
         exit(1)
-
