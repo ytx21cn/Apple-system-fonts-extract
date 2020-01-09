@@ -23,9 +23,9 @@ def main():
 
         # copy each pkg file to destination directory
         # and extract it there
-        dest_file = '%s/%s' % (font_dir, basename(file))
-        copyfile(src=file, dst=dest_file)
-        unpack_xar(dest_file, output_dir=font_dir)
+        dst_file = '%s/%s' % (font_dir, basename(file))
+        copyfile(src=file, dst=dst_file)
+        unpack_xar(dst_file, output_dir=font_dir)
 
 
 if __name__ == '__main__':
