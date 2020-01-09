@@ -1,11 +1,21 @@
-import subprocess as sp
+from os import mkdir
 from os.path import abspath
+from shutil import rmtree
 
-def makedirs(path):
-    sp.call(['mkdir', '-p', path])
 
-def remove(path):
-    sp.call(['rm', '-r', path])
+def safe_mkdir(path):
+    try:
+        mkdir(path)
+    except:
+        pass
+
+
+def safe_remove(path):
+    try:
+        rmtree(path, ignore_errors=True)
+    except:
+        pass
+
 
 sourceFilesPath = abspath('./dmg')
 convertedFilesPath = abspath('./img')

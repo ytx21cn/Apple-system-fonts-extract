@@ -2,13 +2,13 @@ import glob, subprocess as sp
 from os import chdir
 from os.path import dirname, basename, abspath
 
-from paths import makedirs, imgExtractedPath, pkgExtractedPath
+from paths import safe_mkdir, imgExtractedPath, pkgExtractedPath
 from unpack import unpackXar
 
 def main():
     baseDir = abspath('.')
 
-    makedirs(pkgExtractedPath)
+    safe_mkdir(pkgExtractedPath)
 
     pkgFiles = glob.glob('%s/**/*.pkg' % imgExtractedPath, recursive=True)
     for file in pkgFiles:
@@ -17,7 +17,7 @@ def main():
 
         fontName = basename(dirname(file))
         fontDir = abspath('%s/%s' % (pkgExtractedPath, fontName))
-        makedirs(fontDir)
+        safe_mkdir(fontDir)
 
         sp.call(['cp', '-r', file, fontDir])
         fileToExtract = '%s/%s' % (fontDir, basename(file))

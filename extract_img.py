@@ -1,16 +1,16 @@
 import glob, subprocess as sp
 from os.path import abspath
 
-from paths import makedirs, convertedFilesPath, imgExtractedPath
-from unpack import unpack7z
+from paths import safe_mkdir, convertedFilesPath, imgExtractedPath
+from unpack import unpack_7z
 
 def main():
-    makedirs(imgExtractedPath)
+    safe_mkdir(imgExtractedPath)
 
     # extract each img file, and put the extracted content in imgExtractedPath
     imgFiles = glob.glob('%s/*.img' % convertedFilesPath)
     for file in imgFiles:
-        unpack7z(file, imgExtractedPath)
+        unpack_7z(file, imgExtractedPath)
 
 if __name__ == '__main__':
     main()
