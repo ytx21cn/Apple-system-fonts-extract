@@ -22,10 +22,12 @@ def main():
         font_dir = abspath('%s/%s' % (pkg_extracted_path, font_name))
         safe_mkdir(font_dir)
 
-        copyfile(src=file, dst='%s/%s' % (font_dir, basename(file)))
-        file_to_extract = '%s/%s' % (font_dir, basename(file))
+        # copy each pkg file to destination directory
+        # and extract it there
+        dest_file = '%s/%s' % (font_dir, basename(file))
+        copyfile(src=file, dst=dest_file)
         chdir(font_dir)
-        unpack_xar(file_to_extract)
+        unpack_xar(dest_file)
         chdir(base_dir)
 
 
