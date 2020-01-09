@@ -15,7 +15,6 @@ def main():
 
     safe_mkdir(pkg_extracted_path)
 
-    base_dir = abspath(dirname(__file__))
     pkg_files = glob.glob('%s/**/*.pkg' % img_extracted_path, recursive=True)
     for file in pkg_files:
         font_name = basename(dirname(file))
