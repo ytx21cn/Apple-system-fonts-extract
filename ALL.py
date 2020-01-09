@@ -1,4 +1,8 @@
-import dmg2img, extract_img, extract_pkg, extract_fonts_from_payloads, rm_extracted
+import dmg2img
+import extract_fonts_from_payloads
+import extract_img
+import extract_pkg
+import rm_extracted
 
 
 def main():
