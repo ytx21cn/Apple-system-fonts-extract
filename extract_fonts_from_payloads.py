@@ -4,8 +4,8 @@ from os.path import basename, dirname, splitext
 from shutil import copyfile
 from tempfile import TemporaryDirectory
 
-from paths import safe_mkdir, safe_remove, pkg_extracted_path, font_path
-from unpack import unpack_7z
+from utils import safe_mkdir, safe_remove, unpack_7z
+from paths import pkg_extracted_path, font_path
 
 
 def unpack_payload(payload_file, output_dir='.'):

@@ -1,8 +1,8 @@
 import glob
 from os.path import basename, splitext
 
-from paths import safe_mkdir, source_files_path, converted_files_path
-from unpack import dmg2img
+from utils import safe_mkdir, dmg2img
+from paths import source_files_path, converted_files_path
 
 
 def main():

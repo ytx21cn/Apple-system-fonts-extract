@@ -1,8 +1,25 @@
 import subprocess as sp
+import os
 from os.path import abspath
+from shutil import rmtree
 
 import rm_extracted
 
+
+# file / directory utils
+
+def safe_mkdir(path):
+    try:
+        os.mkdir(path)
+    except FileExistsError:
+        pass
+
+
+def safe_remove(path):
+    rmtree(path, ignore_errors=True)
+
+
+# file extraction utils
 
 def dmg2img(file, converted_file=None):
     if converted_file:

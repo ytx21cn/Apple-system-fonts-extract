@@ -1,4 +1,5 @@
-from paths import safe_remove, converted_files_path, img_extracted_path, pkg_extracted_path
+from paths import converted_files_path, img_extracted_path, pkg_extracted_path
+from utils import safe_remove
 
 
 def main():

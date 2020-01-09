@@ -3,8 +3,9 @@ from os import chdir
 from os.path import dirname, basename, abspath
 from shutil import copyfile
 
-from paths import safe_mkdir, img_extracted_path, pkg_extracted_path
-from unpack import unpack_xar
+from utils import safe_mkdir, unpack_xar
+from paths import img_extracted_path, pkg_extracted_path
+
 
 
 def main():
