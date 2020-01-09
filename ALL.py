@@ -1,5 +1,5 @@
 import glob
-from os.path import basename, dirname, splitext
+from os.path import basename, splitext
 from tempfile import TemporaryDirectory
 from shutil import copy
 
