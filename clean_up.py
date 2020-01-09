@@ -1,5 +1,5 @@
 import rm_extracted
-from utils import safe_remove
+from path_utils import safe_remove
 from paths import font_path
 
 

@@ -1,11 +1,10 @@
 import glob
-from os import chdir
 from os.path import dirname, basename, abspath
 from shutil import copyfile
 
-from utils import safe_mkdir, unpack_xar
+from unpack import unpack_xar
+from path_utils import safe_mkdir
 from paths import img_extracted_path, pkg_extracted_path
-
 
 
 def main():
@@ -27,9 +26,7 @@ def main():
         # and extract it there
         dest_file = '%s/%s' % (font_dir, basename(file))
         copyfile(src=file, dst=dest_file)
-        chdir(font_dir)
-        unpack_xar(dest_file)
-        chdir(base_dir)
+        unpack_xar(dest_file, output_dir=font_dir)
 
 
 if __name__ == '__main__':

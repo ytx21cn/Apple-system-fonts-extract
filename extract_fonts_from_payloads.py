@@ -4,7 +4,8 @@ from os.path import basename, dirname, splitext
 from shutil import copyfile
 from tempfile import TemporaryDirectory
 
-from utils import safe_mkdir, safe_remove, unpack_7z
+from unpack import unpack_7z
+from path_utils import safe_mkdir, safe_remove
 from paths import pkg_extracted_path, font_path
 
 

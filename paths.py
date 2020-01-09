@@ -1,4 +1,4 @@
-
+from os.path import abspath
 
 
 source_files_path = abspath('./dmg')

@@ -1,25 +1,10 @@
 import subprocess as sp
-import os
 from os.path import abspath
-from shutil import rmtree
 
 import rm_extracted
 
 
-# file / directory utils
-
-def safe_mkdir(path):
-    try:
-        os.mkdir(path)
-    except FileExistsError:
-        pass
-
-
-def safe_remove(path):
-    rmtree(path, ignore_errors=True)
-
-
-# file extraction utils
+# file extraction
 
 def dmg2img(file, converted_file=None):
     if converted_file:
@@ -35,13 +20,15 @@ def dmg2img(file, converted_file=None):
         exit(1)
 
 
-def unpack_xar(file):
+def unpack_xar(file: str, output_dir: str = '.'):
+    file = abspath(str(file))
+    output_dir = abspath(str(output_dir))
     try:
-        sp.call(['xar', '-xf', file])
+        sp.call(['xar', '-xf', file], cwd=output_dir)
     except:
         print('[ERROR] Unable to extract file: %s\n'
               'Please make sure that the file exists, '
-              'and install xar from https://bit.ly/archive-xar.' % abspath(file))
+              'and install xar from https://bit.ly/archive-xar.' % file)
         rm_extracted.main()
         exit(1)
 
