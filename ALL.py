@@ -1,5 +1,5 @@
 import glob
-from os.path import basename, dirname
+from os.path import basename, dirname, splitext
 from tempfile import TemporaryDirectory
 from shutil import copy
 
@@ -16,15 +16,14 @@ def main():
     for dmg_file in dmg_files:
         with TemporaryDirectory() as temp_dir:
             # First, convert each dmg to img
+            font_name = splitext(basename(dmg_file))[0]
             img_file = dmg2img(dmg_file, converted=temp_dir)
 
             # Then, for each img:
 
             # 1. unpack img, then we can see a single pkg file
-            # we can also get the font name
             img_extracted_dir = unpack_7z(img_file, output_dir=temp_dir)
             pkg_file = glob.glob('%s/**/*.pkg' % img_extracted_dir, recursive=True)[0]
-            font_name = basename(dirname(pkg_file))
 
             # 2. extract the pkg file, then we can see a single 'Payload~' file
             pkg_extracted_dir = unpack_7z(pkg_file)
