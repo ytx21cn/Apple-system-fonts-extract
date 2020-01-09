@@ -8,5 +8,5 @@ Extract apple system fonts downloaded from https://developer.apple.com/fonts/
 * [p7zip-full](https://bit.ly/p7zip-full)
 
 ## Commands
-* Unpack: `python3 ALL.py`
-* Clean up: `python3 clean_up.py`
+* Extract fonts: `make`
+* Clean up: `make clean`
