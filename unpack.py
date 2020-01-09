@@ -4,12 +4,12 @@ from os.path import abspath
 import rm_extracted
 
 
-def dmg2img(file, convertedFile=None):
-    if convertedFile:
-        convertedFile = str(convertedFile)
+def dmg2img(file, converted_file=None):
+    if converted_file:
+        converted_file = str(converted_file)
 
     try:
-        sp.call(['dmg2img', file, convertedFile])
+        sp.call(['dmg2img', file, converted_file])
     except:
         print('[ERROR] unable to convert file: %s\n'
               'Please make sure that the dmg2img package is installed,'
@@ -29,7 +29,8 @@ def unpack_xar(file):
         exit(1)
 
 
-def unpack_7z(file, output_dir ='.'):
+def unpack_7z(file, output_dir='.'):
+    output_dir = str(output_dir)
     try:
         sp.call(['7z', 'x', file, '-y', '-o%s' % output_dir])
     except:

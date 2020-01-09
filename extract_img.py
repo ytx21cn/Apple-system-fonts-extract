@@ -10,7 +10,7 @@ def main():
     # extract each img file, and put the extracted content in img_extracted_path
     imgFiles = glob.glob('%s/*.img' % converted_files_path)
     for file in imgFiles:
-        unpack_7z(file, img_extracted_path)
+        unpack_7z(file, output_dir=img_extracted_path)
 
 if __name__ == '__main__':
     main()
