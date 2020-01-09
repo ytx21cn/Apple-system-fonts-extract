@@ -4,7 +4,7 @@ from os.path import basename, dirname, splitext
 from shutil import copyfile
 from tempfile import TemporaryDirectory
 
-from paths import safe_mkdir, safe_remove, pkgExtractedPath, fontPath
+from paths import safe_mkdir, safe_remove, pkg_extracted_path, font_path
 from unpack import unpack_7z
 
 
@@ -19,13 +19,13 @@ def unpack_payload(payload_file, output_dir='.'):
 
 
 def main():
-    payload_files = glob.glob('%s/**/Payload' % pkgExtractedPath, recursive=True)
+    payload_files = glob.glob('%s/**/Payload' % pkg_extracted_path, recursive=True)
 
-    safe_mkdir(fontPath)
+    safe_mkdir(font_path)
 
     for payload_file in payload_files:
         font_name = splitext(basename(dirname(payload_file)))[0]
-        font_target_path = '%s/%s' % (fontPath, font_name)
+        font_target_path = '%s/%s' % (font_path, font_name)
         safe_mkdir(font_target_path)
 
         print('\n[Now extracting font "%s"]' % font_name)

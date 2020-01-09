@@ -1,9 +1,9 @@
 import rm_extracted
-from paths import safe_remove, fontPath
+from paths import safe_remove, font_path
 
 
 def main():
-    safe_remove(fontPath)
+    safe_remove(font_path)
     rm_extracted.main()
 
 

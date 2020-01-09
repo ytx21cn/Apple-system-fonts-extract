@@ -1,8 +1,8 @@
-from paths import safe_remove, convertedFilesPath, imgExtractedPath, pkgExtractedPath
+from paths import safe_remove, converted_files_path, img_extracted_path, pkg_extracted_path
 
 
 def main():
-    for path in [convertedFilesPath, imgExtractedPath, pkgExtractedPath]:
+    for path in [converted_files_path, img_extracted_path, pkg_extracted_path]:
         safe_remove(path)
 
 

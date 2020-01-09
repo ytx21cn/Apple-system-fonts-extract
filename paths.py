@@ -17,12 +17,12 @@ def safe_remove(path):
         pass
 
 
-sourceFilesPath = abspath('./dmg')
-convertedFilesPath = abspath('./img')
+source_files_path = abspath('./dmg')
+converted_files_path = abspath('./img')
 
-imgExtractedPath = abspath('./img_extracted')
-pkgExtractedPath = abspath('./pkg_extracted')
+img_extracted_path = abspath('./img_extracted')
+pkg_extracted_path = abspath('./pkg_extracted')
 
-fontPath = abspath('./otf')
+font_path = abspath('./otf')
 
 
