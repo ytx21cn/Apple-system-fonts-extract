@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="7455a6aa-80b0-4d4e-9743-0e811b7ffaf9" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1QJ1B1NFeJaGve54ib9bBk1LXnR" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunManager" selected="Makefile.all">
+    <configuration name="all" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="all" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="ALL" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="System" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ALL.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="clean_up" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="System" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/clean_up.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="extract_fonts_from_payloads" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="System" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/extract_fonts_from_payloads.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="extract_img" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="System" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/extract_img.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Makefile.all" />
+        <item itemvalue="Python.ALL" />
+        <item itemvalue="Python.clean_up" />
+        <item itemvalue="Python.extract_fonts_from_payloads" />
+        <item itemvalue="Python.extract_img" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7455a6aa-80b0-4d4e-9743-0e811b7ffaf9" name="Default Changelist" comment="" />
+      <created>1567473745894</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1567473745894</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="578" y="201" width="437" height="482" key="#xdebugger.XInspectDialog" timestamp="1578598878555">
+      <screen x="67" y="27" width="1469" height="837" />
+    </state>
+    <state x="578" y="201" width="437" height="482" key="#xdebugger.XInspectDialog/67.27.1469.837@67.27.1469.837" timestamp="1578598878555" />
+    <state x="559" y="141" key="#xdebugger.evaluate" timestamp="1578598904610">
+      <screen x="67" y="27" width="1469" height="837" />
+    </state>
+    <state x="559" y="141" key="#xdebugger.evaluate/67.27.1469.837@67.27.1469.837" timestamp="1578598904610" />
+    <state width="1114" height="207" key="GridCell.Tab.0.bottom" timestamp="1579053433614">
+      <screen x="67" y="27" width="1469" height="837" />
+    </state>
+    <state width="1114" height="207" key="GridCell.Tab.0.bottom/67.27.1469.837@67.27.1469.837" timestamp="1579053433614" />
+    <state width="1114" height="207" key="GridCell.Tab.0.center" timestamp="1579053433613">
+      <screen x="67" y="27" width="1469" height="837" />
+    </state>
+    <state width="1114" height="207" key="GridCell.Tab.0.center/67.27.1469.837@67.27.1469.837" timestamp="1579053433613" />
+    <state width="1114" height="207" key="GridCell.Tab.0.left" timestamp="1579053433613">
+      <screen x="67" y="27" width="1469" height="837" />
+    </state>
+    <state width="1114" height="207" key="GridCell.Tab.0.left/67.27.1469.837@67.27.1469.837" timestamp="1579053433613" />
+    <state width="1114" height="207" key="GridCell.Tab.0.right" timestamp="1579053433614">
+      <screen x="67" y="27" width="1469" height="837" />
+    </state>
+    <state width="1114" height="207" key="GridCell.Tab.0.right/67.27.1469.837@67.27.1469.837" timestamp="1579053433614" />
+    <state width="1051" height="255" key="GridCell.Tab.1.bottom" timestamp="1578602290194">
+      <screen x="67" y="27" width="1469" height="837" />
+    </state>
+    <state width="1051" height="255" key="GridCell.Tab.1.bottom/67.27.1469.837@67.27.1469.837" timestamp="1578602290194" />
+    <state width="1051" height="255" key="GridCell.Tab.1.center" timestamp="1578602290193">
+      <screen x="67" y="27" width="1469" height="837" />
+    </state>
+    <state width="1051" height="255" key="GridCell.Tab.1.center/67.27.1469.837@67.27.1469.837" timestamp="1578602290193" />
+    <state width="1051" height="255" key="GridCell.Tab.1.left" timestamp="1578602290193">
+      <screen x="67" y="27" width="1469" height="837" />
+    </state>
+    <state width="1051" height="255" key="GridCell.Tab.1.left/67.27.1469.837@67.27.1469.837" timestamp="1578602290193" />
+    <state width="1051" height="255" key="GridCell.Tab.1.right" timestamp="1578602290193">
+      <screen x="67" y="27" width="1469" height="837" />
+    </state>
+    <state width="1051" height="255" key="GridCell.Tab.1.right/67.27.1469.837@67.27.1469.837" timestamp="1578602290193" />
+    <state x="275" y="80" key="SettingsEditor" timestamp="1578589330723">
+      <screen x="67" y="27" width="1469" height="837" />
+    </state>
+    <state x="275" y="80" key="SettingsEditor/67.27.1469.837@67.27.1469.837" timestamp="1578589330723" />
+    <state width="768" height="418" key="XDebugger.FullValuePopup" timestamp="1578679964850">
+      <screen x="67" y="27" width="1469" height="837" />
+    </state>
+    <state width="768" height="418" key="XDebugger.FullValuePopup/67.27.1469.837@67.27.1469.837" timestamp="1578679964850" />
+    <state x="563" y="84" width="466" height="717" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1578679589835">
+      <screen x="67" y="27" width="1469" height="837" />
+    </state>
+    <state x="563" y="84" width="466" height="717" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/67.27.1469.837@67.27.1469.837" timestamp="1578679589835" />
+  </component>
+</project>
