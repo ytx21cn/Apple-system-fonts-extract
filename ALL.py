@@ -40,7 +40,7 @@ def main():
             src_fonts_dir = unpack_7z(payload_file)
             src_font_files = glob.glob('%s/**/*.otf' % src_fonts_dir, recursive=True)
 
-            # 4. copy the font files to the otf directory
+            # 4. move the font files from the temporary directory to the otf directory
             target_dir = abspath(join(otf_path, font_name))
             safe_mkdir(target_dir)
             for src_font_file in src_font_files:
