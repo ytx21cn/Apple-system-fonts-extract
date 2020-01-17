@@ -29,7 +29,7 @@ def dmg2img(dmg_file: str, converted: str = None):
     except:
         print('[ERROR] unable to convert dmg file: %s\n'
               'Please make sure that the dmg2img package is installed,'
-              'and that the file exists.' % abspath(dmg_file))
+              'and that the dmg file does exist.' % abspath(dmg_file))
         exit(1)
 
     return converted
@@ -52,9 +52,11 @@ def unpack_7z(archive: str, output_dir: str = None):
         output_dir = abspath(dirname(archive))
 
     try:
-        sp.call(['7z', 'x', archive, '-y', '-o%s' % output_dir])
+        sp.call(['7z', 'x', archive, '-y', '-o"%s"' % output_dir])
     except:
-        print('[ERROR] unable to extract file: %s\nPlease install the p7zip-full package.' % abspath(archive))
+        print('[ERROR] unable to extract file: %s\n'
+              'Please ensure that the p7zip-full package is installed,'
+              'and that the file to extract does exist.' % abspath(archive))
         exit(1)
 
     return output_dir
