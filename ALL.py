@@ -1,5 +1,6 @@
 import glob
-from os.path import basename, splitext
+from sys import stderr
+from os.path import basename, splitext, abspath
 from tempfile import TemporaryDirectory
 from shutil import copy
 
@@ -40,10 +41,11 @@ def main():
             font_files = glob.glob('%s/**/*.otf' % fonts_dir, recursive=True)
 
             # 4. copy the font files to the otf directory
-            target_dir = '%s/%s' % (otf_path, font_name)
+            target_dir = abspath('%s/%s' % (otf_path, font_name))
             safe_mkdir(target_dir)
             for font_file in font_files:
                 copy(src=font_file, dst=target_dir)
+            print('\nCopied %s font files to %s' % (len(font_files), target_dir), file=stderr)
 
 
 if __name__ == '__main__':
