@@ -1,4 +1,5 @@
 import subprocess as sp
+from sys import stderr
 from os.path import basename, splitext, dirname, abspath, isdir
 
 
@@ -29,7 +30,8 @@ def dmg2img(dmg_file: str, converted: str = None):
     except:
         print('[ERROR] unable to convert dmg file: %s\n'
               'Please make sure that the dmg2img package is installed,'
-              'and that the dmg file does exist.' % abspath(dmg_file))
+              'and that the dmg file does exist.' % abspath(dmg_file),
+              file=stderr)
         exit(1)
 
     return converted
@@ -56,7 +58,8 @@ def unpack_7z(archive: str, output_dir: str = None):
     except:
         print('[ERROR] unable to extract file: %s\n'
               'Please ensure that the p7zip-full package is installed,'
-              'and that the file to extract does exist.' % abspath(archive))
+              'and that the file to extract does exist.' % abspath(archive),
+              file=stderr)
         exit(1)
 
     return output_dir
