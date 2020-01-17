@@ -40,7 +40,8 @@ def dmg2img(dmg_file: str, converted: str = None):
 def unpack_7z(archive: str, output_dir: str = None):
     """
     Unpack 7z archive.
-    Note: This function uses the '7z' command in 'p7zip-full' package.
+    Note: This function uses the "7z" command in "p7zip-full" package.
+    Make sure that you have "p7zip-full" package installed.
 
     :param archive: the path to the archive to be extracted
     :param output_dir: the directory to output the extracted content
