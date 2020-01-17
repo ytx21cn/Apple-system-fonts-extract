@@ -54,7 +54,7 @@ def unpack_7z(archive: str, output_dir: str = None):
         output_dir = abspath(dirname(archive))
 
     try:
-        sp.call(['7z', 'x', archive, '-y', '-o"%s"' % output_dir])
+        sp.call(['7z', 'x', archive, '-y', '-o%s' % output_dir])
     except:
         print('[ERROR] unable to extract file: %s\n'
               'Please ensure that the p7zip-full package is installed,'
