@@ -1,5 +1,6 @@
-from os.path import abspath
+from os.path import abspath, dirname
 
+project_root = dirname(__file__)
 
-dmg_path = abspath('./dmg')
-otf_path = abspath('./otf')
+dmg_path = abspath('%s/dmg' % project_root)
+otf_path = abspath('%s/otf' % project_root)
