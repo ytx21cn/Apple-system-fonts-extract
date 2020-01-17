@@ -45,7 +45,7 @@ def main():
             safe_mkdir(target_dir)
             for font_file in font_files:
                 copy(src=font_file, dst=target_dir)
-            print('\nCopied %s font files to %s' % (len(font_files), target_dir), file=stderr)
+            print('\nCopied %s font files to "%s"' % (len(font_files), target_dir), file=stderr)
 
 
 if __name__ == '__main__':
