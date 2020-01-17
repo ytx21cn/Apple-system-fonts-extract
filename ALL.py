@@ -29,7 +29,7 @@ def main():
         with TemporaryDirectory(dir=dirname(project_root)) as temp_dir:
             # First, convert each dmg to img
             font_name = splitext(basename(dmg_file))[0]
-            img_file = dmg2img(dmg_file, converted=temp_dir)
+            img_file = dmg2img(dmg_file, target=temp_dir)
 
             # Then, for each img:
 

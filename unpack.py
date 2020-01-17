@@ -1,33 +1,34 @@
 import subprocess as sp
 from sys import stderr
-from os.path import basename, splitext, dirname, abspath, isdir
+from os.path import basename, splitext, dirname, abspath, isdir, join
 
 
 # file extraction
 
-def dmg2img(dmg_file: str, converted: str = None):
+def dmg2img(dmg_file: str, target: str = None):
     """
     Convert dmg to img.
     Note: This function uses the "dmg2img" command in the "dmg2img" package.
     Make sure that you have "dmg2img" package installed.
 
     :param dmg_file: the dmg file to be converted
-    :param converted: the output path / output img file
-    :return: the actual path of the converted file
+    :param target: the output path / output img file
+    :return: the actual path of the target file
     """
 
     dmg_file = abspath(str(dmg_file))
     img_filename = '%s.img' % splitext(basename(dmg_file))[0]
-    if converted:
-        converted = abspath(str(converted))
-        if isdir(converted):
-            converted = '%s/%s' % (converted, img_filename)
+    if target:
+        target = abspath(str(target))
+        if isdir(target):
+            target = join(target, img_filename)
     else:
-        converted = '%s/%s' % (dirname(dmg_file), img_filename)
-        converted = abspath(converted)
+        target = abspath(join(dirname(dmg_file), img_filename))
 
+    print('\n[dmg2img]\nConverting "%s" to "%s"...' % (dmg_file, target),
+          file=stderr)
     try:
-        sp.call(['dmg2img', dmg_file, converted])
+        sp.call(['dmg2img', dmg_file, target])
     except:
         print('[ERROR] unable to convert dmg file: %s\n'
               'Please make sure that the dmg2img package is installed,'
@@ -35,7 +36,7 @@ def dmg2img(dmg_file: str, converted: str = None):
               file=stderr)
         exit(1)
 
-    return converted
+    return target
 
 
 def unpack_7z(archive: str, output_dir: str = None):
@@ -55,6 +56,8 @@ def unpack_7z(archive: str, output_dir: str = None):
     else:
         output_dir = abspath(dirname(archive))
 
+    print('\n[unpack_7z]\nUnpacking "%s" to "%s"...' % (archive, output_dir),
+          file=stderr)
     try:
         sp.call(['7z', 'x', archive, '-y', '-o%s' % output_dir])
     except:
