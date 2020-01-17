@@ -18,7 +18,12 @@ def main():
     3. SF Mono
     4. New York
     Download link: https://developer.apple.com/fonts/
+
+    Two packages are required for the extraction:
+    1. dmg2img - convert Apple .dmg files to .img files
+    2. p7zip-full - extract font files from the converted .img files
     """
+
     dmg_files = glob.glob('%s/**/*.dmg' % dmg_path, recursive=True)
     for dmg_file in dmg_files:
         with TemporaryDirectory(dir=dirname(project_root)) as temp_dir:

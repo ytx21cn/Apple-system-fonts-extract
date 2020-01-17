@@ -8,7 +8,8 @@ from os.path import basename, splitext, dirname, abspath, isdir
 def dmg2img(dmg_file: str, converted: str = None):
     """
     Convert dmg to img.
-    Note: This function uses the 'dmg2img' command from the 'dmg2img' package.
+    Note: This function uses the "dmg2img" command in the "dmg2img" package.
+    Make sure that you have "dmg2img" package installed.
 
     :param dmg_file: the dmg file to be converted
     :param converted: the output path / output img file
