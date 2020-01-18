@@ -11,13 +11,14 @@ def dmg2img(dmg_file: str, target: str = None):
     Note: This function uses the "dmg2img" command in the "dmg2img" package.
     Make sure that you have "dmg2img" package installed.
 
-    :param dmg_file: the dmg file to be converted
-    :param target: the output path / output img file
+    :param dmg_file: the .dmg file to be converted
+    :param target: the output path / output .img file
     :return: the actual path of the target file
     """
 
     header = '\n[DMG to IMG]'
 
+    # set proper paths
     dmg_file = abspath(str(dmg_file))
     img_filename = '%s.img' % splitext(basename(dmg_file))[0]
     if target:
@@ -27,6 +28,7 @@ def dmg2img(dmg_file: str, target: str = None):
     else:
         target = abspath(join(dirname(dmg_file), img_filename))
 
+    # convert .dmg to .img
     print(header, file=stderr)
     print('Converting "%s" to "%s"...' % (dmg_file, target), file=stderr)
     try:
@@ -56,12 +58,14 @@ def unpack_7z(archive: str, output_dir: str = None):
 
     header = '\n[Unpack 7z archive]'
 
+    # set proper paths
     archive = abspath(str(archive))
     if output_dir:
         output_dir = abspath(str(output_dir))
     else:
         output_dir = abspath(dirname(archive))
 
+    # unpack archive
     print(header, file=stderr)
     print('Unpacking "%s" to "%s"...' % (archive, output_dir), file=stderr)
     try:
