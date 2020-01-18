@@ -38,9 +38,10 @@ def main():
             img_file = abspath(str(img_file))
             print('\nConverted .img file: "%s"' % img_file, file=stderr)
 
-            # Then, for each img:
+            # Then, for each .img file:
 
-            # 1. unpack img, then we can see a single pkg file
+            # 1. unpack .img
+            # then we can see a single .pkg file
             img_extracted_dir = \
                 time_func(unpack_7z, img_file,
                           start_msg='Unpacking "%s"...' % img_file)
@@ -48,7 +49,8 @@ def main():
             pkg_file = abspath(str(pkg_file))
             print('\nExtracted .pkg file: "%s"' % pkg_file, file=stderr)
 
-            # 2. extract the pkg file, then we can see a single 'Payload~' file
+            # 2. extract the .pkg file
+            # then we can see a 'Payload~' file
             pkg_extracted_dir = \
                 time_func(unpack_7z, pkg_file,
                           start_msg='Unpacking "%s"' % pkg_file)
@@ -57,7 +59,8 @@ def main():
             print('\nExtracted "Payload~" file: "%s"' % payload_file,
                   file=stderr)
 
-            # 3. extract the 'Payload~' file, then we can see the font files in otf format
+            # 3. extract the 'Payload~' file
+            # then we can see the font files in .otf format
             src_fonts_dir = \
                 time_func(unpack_7z, payload_file,
                           start_msg='Unpacking "%s"' % payload_file)
@@ -67,7 +70,8 @@ def main():
             print('\nExtracted %d font files to "%s"'
                   % (num_font_files, src_fonts_dir), file=stderr)
 
-            # 4. move the font files from the temporary directory to the otf directory
+            # 4. move the font files from the temporary directory
+            # to the target directory
             target_dir = abspath(join(otf_path, font_name))
             safe_mkdir(target_dir)
 
