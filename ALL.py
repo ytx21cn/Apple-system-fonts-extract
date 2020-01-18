@@ -4,9 +4,9 @@ from os.path import basename, dirname, splitext, abspath, join
 from tempfile import TemporaryDirectory
 from shutil import move
 
-from unpack import dmg2img, unpack_7z
 from paths import project_root, dmg_path, otf_path
 from path_utils import safe_mkdir
+from unpack_utils import dmg2img, unpack_7z
 from timing_utils import time_func
 
 
