@@ -7,6 +7,7 @@ from shutil import move
 from paths import project_root, dmg_path, otf_path
 from path_utils import safe_mkdir
 from unpack_utils import dmg2img, unpack_7z
+from move_file_utils import move_to_dir
 from timing_utils import time_func
 
 
@@ -68,16 +69,8 @@ def main():
             # 4. move the font files from the temporary directory
             # to the target directory
             target_dir = abspath(join(otf_path, font_name))
-            safe_mkdir(target_dir)
-
-            print('\n[Moving files]', file=stderr)
-            for src_font_file in src_font_files:
-                # overwrite the target if it already exists
-                dst_font_file = join(target_dir, basename(src_font_file))
-                move(src=src_font_file, dst=dst_font_file)
-            print('Moved %d font files into "%s"'
-                  % (len(src_font_files), target_dir),
-                  file=stderr)
+            time_func(move_to_dir,
+                      src_file_list=src_font_files, dst_dir=target_dir)
 
 
 if __name__ == '__main__':
