@@ -38,7 +38,7 @@ def dmg2img(dmg_file: str, target: str = None):
     except OSError:
         print('[ERROR] unable to convert dmg file: %s\n'
               'Please make sure that the dmg2img package is installed,'
-              'and that the dmg file does exist.' % abspath(dmg_file),
+              'and that the .dmg file does exist.' % abspath(dmg_file),
               file=stderr)
         exit(1)
 
