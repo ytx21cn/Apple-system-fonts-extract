@@ -16,6 +16,8 @@ def dmg2img(dmg_file: str, target: str = None):
     :return: the actual path of the target file
     """
 
+    header = '\n[DMG to IMG]'
+
     dmg_file = abspath(str(dmg_file))
     img_filename = '%s.img' % splitext(basename(dmg_file))[0]
     if target:
@@ -25,10 +27,12 @@ def dmg2img(dmg_file: str, target: str = None):
     else:
         target = abspath(join(dirname(dmg_file), img_filename))
 
-    print('\n[dmg2img]\nConverting "%s" to "%s"...' % (dmg_file, target),
-          file=stderr)
+    print(header, file=stderr)
+    print('Converting "%s" to "%s"...' % (dmg_file, target), file=stderr)
     try:
         sp.call(['dmg2img', dmg_file, target])
+        print(header, file=stderr)
+        print('Converted "%s" to "%s"' % (dmg_file, target), file=stderr)
     except OSError:
         print('[ERROR] unable to convert dmg file: %s\n'
               'Please make sure that the dmg2img package is installed,'
@@ -50,16 +54,20 @@ def unpack_7z(archive: str, output_dir: str = None):
     :return: the actual output directory
     """
 
+    header = '\n[Unpack 7z archive]'
+
     archive = abspath(str(archive))
     if output_dir:
         output_dir = abspath(str(output_dir))
     else:
         output_dir = abspath(dirname(archive))
 
-    print('\n[unpack_7z]\nUnpacking "%s" to "%s"...' % (archive, output_dir),
-          file=stderr)
+    print(header, file=stderr)
+    print('Unpacking "%s" to "%s"...' % (archive, output_dir), file=stderr)
     try:
         sp.call(['7z', 'x', archive, '-y', '-o%s' % output_dir])
+        print(header, file=stderr)
+        print('Unpacked "%s" to "%s"' % (archive, output_dir), file=stderr)
     except OSError:
         print('[ERROR] unable to extract file: %s\n'
               'Please ensure that the p7zip-full package is installed,'
