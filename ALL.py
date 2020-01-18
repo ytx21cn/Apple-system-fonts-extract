@@ -29,27 +29,29 @@ def main():
     for dmg_file in dmg_files:
         with TemporaryDirectory(dir=dirname(project_root)) as temp_dir:
             # First, convert each dmg to img
+            dmg_file = abspath(dmg_file)
             font_name = splitext(basename(dmg_file))[0]
-            img_file = dmg2img(dmg_file, target=temp_dir)
+            img_file = \
+                time_func(dmg2img, dmg_file, target=temp_dir,
+                          start_msg='Converting "%s" to .img file...'
+                                    % dmg_file)
             img_file = abspath(str(img_file))
+            print('\nConverted .img file: "%s"' % img_file, file=stderr)
 
             # Then, for each img:
 
             # 1. unpack img, then we can see a single pkg file
             img_extracted_dir = \
                 time_func(unpack_7z, img_file,
-                          start_msg='Unpacking "%s"...' % img_file,
-                          end_msg='Unpacked %s' % img_file)
+                          start_msg='Unpacking "%s"...' % img_file)
             pkg_file = glob.glob('%s/**/*.pkg' % img_extracted_dir, recursive=True)[0]
             pkg_file = abspath(str(pkg_file))
-            print('\nExtracted .pkg file: "%s"' % pkg_file,
-                  file=stderr)
+            print('\nExtracted .pkg file: "%s"' % pkg_file, file=stderr)
 
             # 2. extract the pkg file, then we can see a single 'Payload~' file
             pkg_extracted_dir = \
                 time_func(unpack_7z, pkg_file,
-                          start_msg='Unpacking "%s"' % pkg_file,
-                          end_msg='"%s" extracted' % pkg_file)
+                          start_msg='Unpacking "%s"' % pkg_file)
             payload_file = glob.glob('%s/**/Payload~' % pkg_extracted_dir, recursive=True)[0]
             payload_file = abspath(str(payload_file))
             print('\nExtracted "Payload~" file: "%s"' % payload_file,
@@ -58,14 +60,12 @@ def main():
             # 3. extract the 'Payload~' file, then we can see the font files in otf format
             src_fonts_dir = \
                 time_func(unpack_7z, payload_file,
-                          start_msg='Unpacking "%s"' % payload_file,
-                          end_msg='"%s" extracted' % payload_file)
+                          start_msg='Unpacking "%s"' % payload_file)
             src_fonts_dir = abspath(str(src_fonts_dir))
             src_font_files = glob.glob('%s/**/*.otf' % src_fonts_dir, recursive=True)
             num_font_files = len(src_font_files)
-            print("\nExtracted %d font files to: %s"
-                  % (num_font_files, src_fonts_dir),
-                  file=stderr)
+            print('\nExtracted %d font files to "%s"'
+                  % (num_font_files, src_fonts_dir), file=stderr)
 
             # 4. move the font files from the temporary directory to the otf directory
             target_dir = abspath(join(otf_path, font_name))
