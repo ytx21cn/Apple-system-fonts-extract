@@ -2,10 +2,8 @@ import glob
 from sys import stderr
 from os.path import basename, dirname, splitext, abspath, join
 from tempfile import TemporaryDirectory
-from shutil import move
 
 from paths import project_root, dmg_path, otf_path
-from path_utils import safe_mkdir
 from unpack_utils import dmg2img, unpack_7z
 from move_file_utils import move_to_dir
 from timing_utils import time_func
