@@ -57,7 +57,9 @@ def main():
                 dst_font_file = join(target_dir, basename(src_font_file))
                 move(src=src_font_file, dst=dst_font_file)
             move_total_time = time() - move_start_time
-            print('Moved %s font files into "%s" in %.3f seconds' % (len(src_font_files), target_dir, move_total_time), file=stderr)
+            print('Moved %s font files into "%s" in %.3f seconds'
+                  % (len(src_font_files), target_dir, move_total_time),
+                  file=stderr)
 
 
 if __name__ == '__main__':
