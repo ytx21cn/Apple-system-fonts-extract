@@ -17,7 +17,7 @@ def time_func(func, *args, header: str = None,
     :param start_msg: the message to print before :param func starts
     :param end_msg: the message to print after :param func ends
     :param kwargs: keyword arguments for :param func
-    :return:
+    :return: the execution result of :param func
     """
 
     func_name = func.__name__
