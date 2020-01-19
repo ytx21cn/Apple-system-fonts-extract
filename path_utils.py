@@ -1,3 +1,4 @@
+from sys import stderr
 from os import makedirs
 from os.path import dirname, abspath, isfile, isdir
 from shutil import rmtree
@@ -7,8 +8,18 @@ def safe_mkdir(dir_path: str):
     """
     Safely create a directory. Supports multi-level directory creation.
     :param dir_path: the path to create a directory.
+    :return the path to directory, or None if failed to create directory
     """
-    makedirs(dir_path, exist_ok=True)
+    dir_path = abspath(dir_path)
+    try:
+        print('\n[Creating directory...]', file=stderr)
+        makedirs(dir_path, exist_ok=True)
+        print('Created directory: "%s"' % dir_path, file=stderr)
+        return dir_path
+    except OSError as err:
+        print('\n[OSError]\n%s' % err, file=stderr)
+        print('Failed to create directory: "%s"' % dir_path, file=stderr)
+        return None
 
 
 def safe_create_file(file_path: str, overwrite: bool = False):
