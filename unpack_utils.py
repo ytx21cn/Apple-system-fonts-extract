@@ -50,6 +50,7 @@ def dmg2img(dmg_file: str, output: str = None):
         output = join(dirname(dmg_file), img_filename)
     output = abspath(output)
 
+    # convert .dmg to .img
     try:
         print('\n[Converting from .dmg to .img...]', file=stderr)
         print('Input file: "%s"\nOutput file: "%s"' % (dmg_file, output),
