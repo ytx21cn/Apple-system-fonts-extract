@@ -35,26 +35,27 @@ def main():
 
             # 1. unpack .img
             # then we can see a single .pkg file
-            img_extracted_dir = unpack_7z(img_file)
+            img_extracted_dir = time_func(unpack_7z, img_file)
             pkg_file = glob.glob('%s/**/*.pkg' % img_extracted_dir,
                                  recursive=True)[0]
 
             # 2. extract the .pkg file
             # then we can see a single 'Payload~' file
-            pkg_extracted_dir = unpack_7z(pkg_file)
+            pkg_extracted_dir = time_func(unpack_7z, pkg_file)
             payload_file = glob.glob('%s/**/Payload~' % pkg_extracted_dir,
                                      recursive=True)[0]
 
             # 3. extract the 'Payload~' file
             # then we can see the font files in .otf format
-            src_fonts_dir = unpack_7z(payload_file)
+            src_fonts_dir = time_func(unpack_7z, payload_file)
             src_font_files = glob.glob('%s/**/*.otf' % src_fonts_dir,
                                        recursive=True)
 
             # 4. move the font files from the temporary directory
             # to the target directory
             target_dir = join(otf_path, font_name)
-            move_to_dir(src_file_list=src_font_files, dst_dir=target_dir)
+            time_func(move_to_dir, src_file_list=src_font_files,
+                      dst_dir=target_dir)
 
 
 if __name__ == '__main__':

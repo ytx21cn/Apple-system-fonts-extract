@@ -13,8 +13,6 @@ def move_to_dir(src_file_list: list, dst_dir: str = '.'):
     :return: the destination directory's absolute path
     """
 
-    header = '\n[Move files]'
-
     dst_dir = abspath(str(dst_dir))
     safe_mkdir(dst_dir)
 
@@ -22,8 +20,8 @@ def move_to_dir(src_file_list: list, dst_dir: str = '.'):
     num_failure = 0
     num_total = len(src_file_list)
 
-    print(header, file=stderr)
-    print('Moving %d files to "%s"...' % (num_total, dst_dir), file=stderr)
+    print('\n[Moving files...]', file=stderr)
+    print('Moving %d files to "%s"' % (num_total, dst_dir), file=stderr)
 
     for src_file in src_file_list:
         # overwrite the destination file if it already exists
@@ -34,8 +32,7 @@ def move_to_dir(src_file_list: list, dst_dir: str = '.'):
         except OSError:
             num_failure += 1
 
-    print(header, file=stderr)
-    print('Move to: "%s"' % dst_dir, file=stderr)
+    print('\n[Moving files completed]', file=stderr)
     print('Success: %d / %d' % (num_success, num_total), file=stderr)
     print('Failure: %d / %d' % (num_failure, num_total), file=stderr)
 

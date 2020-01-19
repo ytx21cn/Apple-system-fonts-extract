@@ -17,7 +17,7 @@ def dmg2img(dmg_file: str, output: str = None):
     """
 
     # set proper paths
-    dmg_file = str(dmg_file)
+    dmg_file = abspath(str(dmg_file))
     img_filename = '%s.img' % splitext(basename(dmg_file))[0]
     if output:
         output = str(output)
@@ -25,9 +25,15 @@ def dmg2img(dmg_file: str, output: str = None):
             output = join(output, img_filename)
     else:
         output = join(dirname(dmg_file), img_filename)
+    output = abspath(output)
 
     try:
+        print('\n[Converting from .dmg to .img...]', file=stderr)
+        print('Input file: "%s"\nOutput file: "%s"' % (dmg_file, output),
+              file=stderr)
         sp.call(['dmg2img', dmg_file, output])
+        print('\n[Conversion completed]', file=stderr)
+        print('Output file: "%s"' % output, file=stderr)
     except OSError:
         print('[ERROR] unable to convert dmg file: "%s"\n'
               'Please make sure that the dmg2img package is installed,'
@@ -35,7 +41,7 @@ def dmg2img(dmg_file: str, output: str = None):
               file=stderr)
         exit(1)
 
-    return abspath(output)
+    return output
 
 
 def unpack_7z(archive: str, output_dir: str = None):
@@ -50,15 +56,21 @@ def unpack_7z(archive: str, output_dir: str = None):
     """
 
     # set proper paths
-    archive = str(archive)
+    archive = abspath(str(archive))
     if output_dir:
         output_dir = str(output_dir)
     else:
         output_dir = dirname(archive)
+    output_dir = abspath(output_dir)
 
     # unpack archive
     try:
+        print('\n[Unpacking archive...]', file=stderr)
+        print('Unpack from: "%s"\nOutput directory: "%s"'
+              % (archive, output_dir), file=stderr)
         sp.call(['7z', 'x', archive, '-y', '-o%s' % output_dir])
+        print('\n[Unpacking completed]', file=stderr)
+        print('Output directory: "%s"' % output_dir, file=stderr)
     except OSError:
         print('[ERROR] unable to extract file: "%s"\n'
               'Please ensure that the p7zip-full package is installed,'
@@ -66,4 +78,4 @@ def unpack_7z(archive: str, output_dir: str = None):
               file=stderr)
         exit(1)
 
-    return abspath(output_dir)
+    return output_dir
