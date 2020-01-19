@@ -1,6 +1,6 @@
-from os.path import abspath, dirname
+from os.path import abspath, dirname, join
 
-project_root = dirname(__file__)
+project_root = abspath(dirname(__file__))
 
-dmg_path = abspath('%s/dmg' % project_root)
-otf_path = abspath('%s/otf' % project_root)
+dmg_path = join(project_root, 'dmg')
+otf_path = join(project_root, 'otf')
