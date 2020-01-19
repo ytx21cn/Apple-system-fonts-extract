@@ -23,8 +23,15 @@ def dmg2img(dmg_file: str, output: str = None):
     output_ext = '.img'
 
     # set proper paths
+    try:
+        assert dmg_file is not None, 'dmg_file is None'
+    except AssertionError as err:
+        print(err, file=stderr)
+        return None
+
     dmg_file = abspath(str(dmg_file))
     img_filename = '%s%s' % (splitext(basename(dmg_file))[0], output_ext)
+
     # handle different cases for output
     # if output is specified
     if output:
@@ -49,6 +56,7 @@ def dmg2img(dmg_file: str, output: str = None):
                 safe_create_file(output)
     else:
         output = join(dirname(dmg_file), img_filename)
+
     output = abspath(output)
 
     # convert .dmg to .img
@@ -85,6 +93,12 @@ def unpack_7z(archive: str, output_dir: str = None):
     """
 
     # set proper paths
+    try:
+        assert archive is not None, 'archive is None'
+    except AssertionError as err:
+        print(err, file=stderr)
+        return None
+
     archive = abspath(str(archive))
     if output_dir:
         output_dir = str(output_dir)
