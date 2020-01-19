@@ -30,7 +30,7 @@ def dmg2img(dmg_file: str, output: str = None):
         output = str(output)
         # if output is an existing file, then overwrite it
         if isfile(output):
-            pass
+            safe_create_file(output, overwrite=True)
         # if output is an existing directory,
         # then create the output file in that directory
         elif isdir(output):
