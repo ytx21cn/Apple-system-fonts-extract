@@ -6,11 +6,13 @@ from shutil import rmtree
 
 def safe_mkdir(dir_path: str):
     """
-    Safely create a directory. Supports multi-level directory creation.
+    Safely create a directory.
+    Supports multi-level directory creation.
     :param dir_path: the path to create a directory.
     :return the absolute path of the directory,
-        or None if failed to create directory
+        or None if failed to create directory.
     """
+
     dir_path = abspath(str(dir_path))
 
     try:
@@ -27,13 +29,15 @@ def safe_mkdir(dir_path: str):
 
 def safe_create_file(file_path: str, overwrite: bool = False):
     """
-    Safely create a file. Supports multi-level directory creation.
+    Safely create a file.
+    Supports multi-level directory creation.
     :param file_path: the path to create a directory.
     :param overwrite: whether to overwrite if a file of that name exists
         (do nothing if a directory of that name exists)
     :return the absolute path of the file,
-        or None if failed to create the file
+        or None if failed to create the file.
     """
+
     file_path = abspath(str(file_path))
 
     try:
@@ -61,6 +65,18 @@ def safe_remove(path: str):
     """
     Safely remove a file / directory tree.
     :param path: the path to remove.
+    :return the path removed, or None if failed to remove.
     """
+    
     path = abspath(str(path))
-    rmtree(path, ignore_errors=True)
+
+    try:
+        print('\n[Removing item...]', file=stderr)
+        rmtree(path)
+        print('Removed item: "%s"' % path, file=stderr)
+        return path
+
+    except OSError:
+        print('[OSError]', file=stderr)
+        print('Failed to removed item: "%s"' % path, file=stderr)
+        return None
