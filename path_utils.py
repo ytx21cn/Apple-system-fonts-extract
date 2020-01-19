@@ -8,11 +8,7 @@ def safe_mkdir(dir_path: str):
     Safely create a directory. Supports multi-level directory creation.
     :param dir_path: the path to create a directory.
     """
-    dir_path = abspath(str(dir_path))
-    if isfile(dir_path):
-        pass
-    else:
-        makedirs(dir_path, exist_ok=True)
+    makedirs(dir_path, exist_ok=True)
 
 
 def safe_create_file(file_path: str, overwrite: bool = False):
@@ -24,7 +20,7 @@ def safe_create_file(file_path: str, overwrite: bool = False):
     """
     file_path = abspath(str(file_path))
     if isdir(file_path):
-        pass
+        raise IsADirectoryError
     elif isfile(file_path) and (not overwrite):
         pass
     else:
