@@ -56,7 +56,7 @@ def safe_create_file(file_path: str, overwrite: bool = False):
             return file_path
 
     except OSError as err:
-        print('\n[OSError]\n%s' % err, file=stderr)
+        print('\n[OSError] %s' % err, file=stderr)
         print('Failed to create file: "%s"' % file_path, file=stderr)
         return None
 
@@ -67,7 +67,7 @@ def safe_remove(path: str):
     :param path: the path to remove.
     :return the path removed, or None if failed to remove.
     """
-    
+
     path = abspath(str(path))
 
     try:
