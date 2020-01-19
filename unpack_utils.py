@@ -1,6 +1,9 @@
 import subprocess as sp
 from sys import stderr
-from os.path import basename, splitext, dirname, abspath, isdir, join
+from os.path import basename, splitext, dirname, abspath,\
+    isdir, isfile, join
+
+from path_utils import safe_create_file
 
 
 # file extraction
@@ -16,13 +19,33 @@ def dmg2img(dmg_file: str, output: str = None):
     :return: the absolute path of the output file
     """
 
+    output_ext = '.img'
+
     # set proper paths
     dmg_file = abspath(str(dmg_file))
-    img_filename = '%s.img' % splitext(basename(dmg_file))[0]
+    img_filename = '%s%s' % (splitext(basename(dmg_file))[0], output_ext)
+    # handle different cases for output
+    # if output is specified
     if output:
         output = str(output)
-        if isdir(output):
+        # if output is an existing file, then overwrite it
+        if isfile(output):
+            pass
+        # if output is an existing directory,
+        # then create the output file in that directory
+        elif isdir(output):
             output = join(output, img_filename)
+        # otherwise, need to create the directory to hold the output file
+        else:
+            # if output path ends with '.img'
+            # then treat it as the target output file
+            if output.endswith(output_ext):
+                safe_create_file(output)
+            # otherwise, treat it as the output directory
+            else:
+                output_dir = output
+                output = join(output_dir, img_filename)
+                safe_create_file(output)
     else:
         output = join(dirname(dmg_file), img_filename)
     output = abspath(output)
