@@ -53,7 +53,7 @@ def safe_create_file(file_path: str, overwrite: bool = False):
 
     except OSError as err:
         print('\n[OSError]\n%s' % err, file=stderr)
-        print('Failed to create directory: "%s"' % file_path, file=stderr)
+        print('Failed to create file: "%s"' % file_path, file=stderr)
         return None
 
 
