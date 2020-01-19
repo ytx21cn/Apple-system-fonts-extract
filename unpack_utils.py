@@ -3,7 +3,7 @@ from sys import stderr
 from os.path import basename, splitext, dirname, abspath,\
     isdir, isfile, join
 
-from path_utils import safe_create_file
+from path_utils import safe_create_file, safe_mkdir
 
 
 # file extraction
@@ -85,6 +85,7 @@ def unpack_7z(archive: str, output_dir: str = None):
     else:
         output_dir = dirname(archive)
     output_dir = abspath(output_dir)
+    safe_mkdir(output_dir)
 
     # unpack archive
     try:
