@@ -29,7 +29,7 @@ def main():
 
             # First, convert each dmg to img
             font_name = splitext(basename(dmg_file))[0]
-            img_file = dmg2img(dmg_file, output=temp_dir)
+            img_file = time_func(dmg2img, dmg_file, output=temp_dir)
 
             # Then, for each .img file:
 
