@@ -26,7 +26,7 @@ def dmg2img(dmg_file: str, output: str = None):
     try:
         assert dmg_file is not None, 'dmg_file is None'
     except AssertionError as err:
-        print(err, file=stderr)
+        print('\n[%s]' % type(err).__name__, err, sep='\n', file=stderr)
         return None
 
     dmg_file = abspath(str(dmg_file))
@@ -96,7 +96,7 @@ def unpack_7z(archive: str, output_dir: str = None):
     try:
         assert archive is not None, 'archive is None'
     except AssertionError as err:
-        print(err, file=stderr)
+        print('\n[%s]' % type(err).__name__, err, sep='\n', file=stderr)
         return None
 
     archive = abspath(str(archive))
