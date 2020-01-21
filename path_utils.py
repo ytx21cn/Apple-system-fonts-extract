@@ -22,8 +22,9 @@ def safe_mkdir(dir_path: str):
         return dir_path
 
     except OSError as err:
-        print('\n[OSError]\n%s' % err, file=stderr)
-        print('Failed to create directory: "%s"' % dir_path, file=stderr)
+        print('[%s]' % type(err).__name__, err,
+              'Failed to create directory: "%s"' % dir_path,
+              sep='\n', file=stderr)
         return None
 
 
@@ -56,8 +57,9 @@ def safe_create_file(file_path: str, overwrite: bool = False):
             return file_path
 
     except OSError as err:
-        print('\n[OSError] %s' % err, file=stderr)
-        print('Failed to create file: "%s"' % file_path, file=stderr)
+        print('[%s]' % type(err).__name__, err,
+              'Failed to create file: "%s"' % file_path,
+              sep='\n', file=stderr)
         return None
 
 
@@ -76,7 +78,8 @@ def safe_remove(path: str):
         print('Removed item: "%s"' % path, file=stderr)
         return path
 
-    except OSError:
-        print('[OSError]', file=stderr)
-        print('Failed to removed item: "%s"' % path, file=stderr)
+    except OSError as err:
+        print('[%s]' % type(err).__name__, err,
+              'Failed to removed item: "%s"' % path,
+              sep='\n', file=stderr)
         return None
