@@ -50,7 +50,8 @@ def safe_create_file(file_path: str, overwrite: bool = False):
     try:
         print('\n[Creating file...]', file=stderr)
         if isdir(file_path):
-            raise IsADirectoryError
+            raise IsADirectoryError('"%s" is an existing directory'
+                                    % file_path)
         elif isfile(file_path) and (not overwrite):
             print('File "%s" already exists, and is not overwritten'
                   % file_path, file=stderr)
