@@ -33,7 +33,7 @@ def dmg2img(dmg_file: str, output: str = None):
     img_filename = '%s%s' % (splitext(basename(dmg_file))[0], output_ext)
 
     # handle different cases for output
-    # if output is specified
+    # if output is specified, then use it for the output file
     if output:
         output = str(output)
         # if output is an existing file, then overwrite it
@@ -54,6 +54,8 @@ def dmg2img(dmg_file: str, output: str = None):
                 output_dir = output
                 output = join(output_dir, img_filename)
                 safe_create_file(output)
+    # otherwise, use the filename of the .dmg
+    # and change extension to .img
     else:
         output = join(dirname(dmg_file), img_filename)
 
