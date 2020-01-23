@@ -23,7 +23,7 @@ def main():
     2. p7zip-full - extract font files from the converted .img files
     """
 
-    dmg_files = glob.glob('%s/**/*.dmg' % dmg_path, recursive=True)
+    dmg_files = glob.glob(join(dmg_path, '**/*.dmg'), recursive=True)
     for dmg_file in dmg_files:
         with TemporaryDirectory() as temp_dir:
 
@@ -36,19 +36,19 @@ def main():
             # 1. unpack .img
             # then we can see a single .pkg file
             img_extracted_dir = time_func(unpack_7z, img_file)
-            pkg_file = glob.glob('%s/**/*.pkg' % img_extracted_dir,
+            pkg_file = glob.glob(join(img_extracted_dir, '**/*.pkg'),
                                  recursive=True)[0]
 
             # 2. extract the .pkg file
             # then we can see a single "Payload~" file
             pkg_extracted_dir = time_func(unpack_7z, pkg_file)
-            payload_file = glob.glob('%s/**/Payload~' % pkg_extracted_dir,
+            payload_file = glob.glob(join(pkg_extracted_dir, '**/Payload~'),
                                      recursive=True)[0]
 
             # 3. extract the "Payload~" file
             # then we can see the font files in .otf format
             src_fonts_dir = time_func(unpack_7z, payload_file)
-            src_font_files = glob.glob('%s/**/*.otf' % src_fonts_dir,
+            src_font_files = glob.glob(join(src_fonts_dir, '**/*.otf'),
                                        recursive=True)
 
             # 4. move the font files from the temporary directory
