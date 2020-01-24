@@ -37,44 +37,6 @@ def safe_mkdir(dir_path: str) -> str or None:
         return None
 
 
-def safe_create_file(file_path: str, overwrite: bool = False)\
-        -> str or None:
-    """
-    Safely create a file.
-    Supports multi-level directory creation.
-    :param file_path: the path to create a directory.
-    :param overwrite: whether to overwrite if a file of that name exists
-        (do nothing if a directory of that name exists)
-    :return the absolute path of the file,
-        or None if failed to create the file.
-    """
-
-    file_path = abspath(str(file_path))
-
-    try:
-        print('\n[Creating file...]', file=stderr)
-        if isdir(file_path):
-            raise IsADirectoryError('"%s" is an existing directory'
-                                    % file_path)
-        elif isfile(file_path) and (not overwrite):
-            print('File "%s" already exists, and is not overwritten'
-                  % file_path, file=stderr)
-            return file_path
-        else:
-            file_dir = abspath(dirname(file_path))
-            assert safe_mkdir(file_dir) is not None, \
-                'Failed to create directory "%s"' % file_dir
-            with open(file_path, 'w'):
-                pass
-            print('Created file "%s"' % file_path, file=stderr)
-            return file_path
-
-    except (OSError, AssertionError) as err:
-        print(get_err_msg(err), 'Failed to create file: "%s"' % file_path,
-              sep='\n', file=stderr)
-        return None
-
-
 def safe_remove(path: str) -> str or None:
     """
     Safely remove a file / directory tree.

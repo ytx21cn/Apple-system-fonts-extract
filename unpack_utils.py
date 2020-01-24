@@ -5,7 +5,7 @@ from os.path import basename, splitext, dirname, abspath,\
     isdir, isfile, join
 
 from err_utils import get_err_msg
-from path_utils import safe_create_file, safe_mkdir
+from path_utils import safe_mkdir
 
 
 # file extraction
@@ -46,7 +46,6 @@ def dmg2img(dmg_file: str, output: str = None) -> str or None:
         # if output is an existing file, then overwrite it
         # also set the extension to .img
         if isfile(output):
-            safe_create_file(output, overwrite=True)
             if not output.endswith(output_ext):
                 output_with_proper_ext = splitext(output)[0] + output_ext
                 renames(output, output_with_proper_ext)
@@ -61,12 +60,13 @@ def dmg2img(dmg_file: str, output: str = None) -> str or None:
             # if output path ends with '.img'
             # then treat it as the target output file
             if output.endswith(output_ext):
-                safe_create_file(output)
+                output_dir = dirname(output)
+                safe_mkdir(output_dir)
             # otherwise, treat it as the output directory
             else:
                 output_dir = output
                 output = join(output_dir, img_filename)
-                safe_create_file(output)
+                safe_mkdir(output_dir)
     # otherwise, use the filename of the .dmg
     # and change extension to .img
     else:
