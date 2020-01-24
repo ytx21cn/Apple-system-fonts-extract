@@ -2,6 +2,7 @@ from shutil import move
 from sys import stderr
 from os.path import abspath, basename, join
 
+from err_utils import get_err_msg
 from path_utils import safe_mkdir
 
 
@@ -19,7 +20,7 @@ def move_to_dir(src_file_list: list, dst_dir: str = '.') -> str or None:
         assert safe_mkdir(dst_dir) is not None,\
             'Failed to create directory "%s"' % dst_dir
     except AssertionError as err:
-        print('\n[%s]' % type(err), err, sep='\n', file=stderr)
+        print(get_err_msg(err), sep='\n', file=stderr)
         return None
 
     num_success = 0
@@ -39,7 +40,7 @@ def move_to_dir(src_file_list: list, dst_dir: str = '.') -> str or None:
         except OSError:
             num_failure += 1
 
-    print('\n[Moving files completed]'
+    print('\n[Moving files completed]',
           'Success: %d / %d' % (num_success, num_total),
           'Failure: %d / %d' % (num_failure, num_total),
           sep='\n', file=stderr)

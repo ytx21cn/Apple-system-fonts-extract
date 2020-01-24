@@ -4,6 +4,7 @@ from os import renames
 from os.path import basename, splitext, dirname, abspath,\
     isdir, isfile, join
 
+from err_utils import get_err_msg
 from path_utils import safe_create_file, safe_mkdir
 
 
@@ -30,7 +31,7 @@ def dmg2img(dmg_file: str, output: str = None) -> str or None:
         if not isfile(dmg_file):
             raise FileNotFoundError('File "%s" does not exist' % dmg_file)
     except (AssertionError, FileNotFoundError) as err:
-        print('\n[%s]' % type(err).__name__, err, sep='\n', file=stderr)
+        print(get_err_msg(err), sep='\n', file=stderr)
         return None
 
     # use the filename of the original .dmg file
@@ -86,7 +87,7 @@ def dmg2img(dmg_file: str, output: str = None) -> str or None:
         return output
 
     except (OSError, sp.SubprocessError) as err:
-        print('\n[%s]' % type(err).__name__, err,
+        print(get_err_msg(err),
               'Failed to convert "%s" to "%s".' % (dmg_file, output),
               'Please ensure that the "dmg2img" package is installed,'
               'and both the input and output paths are valid.',
@@ -113,7 +114,7 @@ def unpack_7z(archive: str, output_dir: str = None) -> str or None:
         if not isfile(archive):
             raise FileNotFoundError('Archive "%s" does not exist')
     except (AssertionError, FileNotFoundError) as err:
-        print('\n[%s]' % type(err).__name__, err, sep='\n', file=stderr)
+        print(get_err_msg(err), sep='\n', file=stderr)
         return None
 
     # set proper paths
@@ -134,7 +135,7 @@ def unpack_7z(archive: str, output_dir: str = None) -> str or None:
         return output_dir
 
     except (OSError, sp.SubprocessError) as err:
-        print('\n[%s]' % type(err).__name__, err,
+        print(get_err_msg(err),
               'Failed to extract file: "%s".' % archive,
               'Please ensure that the "p7zip-full" package is installed,'
               'and both file to extract and the output directory are valid.',

@@ -3,6 +3,8 @@ from os import makedirs
 from os.path import dirname, abspath, isfile, isdir
 from shutil import rmtree
 
+from err_utils import get_err_msg
+
 
 def safe_mkdir(dir_path: str) -> str or None:
     """
@@ -29,7 +31,7 @@ def safe_mkdir(dir_path: str) -> str or None:
             return dir_path
 
     except OSError as err:
-        print('[%s]' % type(err).__name__, err,
+        print(get_err_msg(err),
               'Failed to create directory: "%s"' % dir_path,
               sep='\n', file=stderr)
         return None
@@ -68,8 +70,7 @@ def safe_create_file(file_path: str, overwrite: bool = False)\
             return file_path
 
     except (OSError, AssertionError) as err:
-        print('[%s]' % type(err).__name__, err,
-              'Failed to create file: "%s"' % file_path,
+        print(get_err_msg(err), 'Failed to create file: "%s"' % file_path,
               sep='\n', file=stderr)
         return None
 
@@ -90,7 +91,6 @@ def safe_remove(path: str) -> str or None:
         return path
 
     except OSError as err:
-        print('[%s]' % type(err).__name__, err,
-              'Failed to removed item: "%s"' % path,
+        print(get_err_msg(err), 'Failed to removed item: "%s"' % path,
               sep='\n', file=stderr)
         return None
