@@ -5,7 +5,7 @@ from os.path import basename, splitext, dirname, abspath,\
     isdir, isfile, join
 
 from err_utils import get_err_msg
-from path_utils import safe_mkdir
+from path_utils import check_file_exists, safe_mkdir
 
 
 # file extraction
@@ -25,13 +25,8 @@ def dmg2img(dmg_file: str, output_path: str = None) -> str or None:
     output_ext = '.img'
 
     # first check existence of the .dmg file to be converted
-    try:
-        assert dmg_file is not None, 'dmg_file is None'
-        dmg_file = abspath(str(dmg_file))
-        if not isfile(dmg_file):
-            raise FileNotFoundError('File "%s" does not exist' % dmg_file)
-    except (AssertionError, FileNotFoundError) as err:
-        print(get_err_msg(err), sep='\n', file=stderr)
+    dmg_file = '' if (dmg_file is None) else abspath(str(dmg_file))
+    if not check_file_exists(dmg_file):
         return None
 
     # use the filename of the original .dmg file
@@ -116,13 +111,8 @@ def unpack_7z(archive: str, output_dir: str = None) -> str or None:
     """
 
     # first check existence of archive to be extracted
-    try:
-        assert archive is not None, 'archive is None'
-        archive = abspath(str(archive))
-        if not isfile(archive):
-            raise FileNotFoundError('Archive "%s" does not exist')
-    except (AssertionError, FileNotFoundError) as err:
-        print(get_err_msg(err), sep='\n', file=stderr)
+    archive = '' if (archive is None) else abspath(str(archive))
+    if not check_file_exists(archive):
         return None
 
     # set proper paths

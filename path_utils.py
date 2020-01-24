@@ -6,6 +6,21 @@ from shutil import rmtree
 from err_utils import get_err_msg
 
 
+def check_file_exists(file: str, err_msg: str = None) -> bool:
+    file = '' if file is None else abspath(str(file))
+    err_msg = 'File "%s" does not exist' if err_msg is None \
+        else str(err_msg)
+
+    try:
+        if isfile(file):
+            return True
+        else:
+            raise FileNotFoundError(err_msg)
+    except FileNotFoundError as err:
+        print(get_err_msg(err), file=stderr)
+        return False
+
+
 def safe_mkdir(dir_path: str) -> str or None:
     """
     Safely create a directory.
