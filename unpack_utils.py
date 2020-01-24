@@ -83,7 +83,7 @@ def dmg2img(dmg_file: str, output_path: str = None) -> str or None:
               'Input file: "%s"' % dmg_file,
               'Output file: "%s"' % output_path,
               sep='\n', file=stderr)
-        sp.check_call(['dmg2img', dmg_file, output_path])
+        sp.check_call(['dmg2img', dmg_file, output_path], stdout=stderr)
         print('\n[Conversion completed]',
               'Output file: "%s"' % output_path,
               sep='\n', file=stderr)
@@ -126,7 +126,8 @@ def unpack_7z(archive: str, output_dir: str = None) -> str or None:
               'Unpack from: "%s"' % archive,
               'Output directory: "%s"' % output_dir,
               sep='\n', file=stderr)
-        sp.check_call(['7z', 'x', archive, '-y', '-o%s' % output_dir])
+        sp.check_call(['7z', 'x', archive, '-y', '-o%s' % output_dir],
+                      stdout=stderr)
         print('\n[Unpacking completed]',
               'Output directory: "%s"' % output_dir,
               sep='\n', file=stderr)
