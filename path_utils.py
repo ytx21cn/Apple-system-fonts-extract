@@ -17,13 +17,16 @@ def safe_mkdir(dir_path: str) -> str or None:
 
     try:
         print('\n[Creating directory...]', file=stderr)
-        if isdir(dir_path):
-            print('Directory "%s" already exists, so not created' % dir_path,
-                  file=stderr)
+        if isfile(dir_path):
+            raise FileExistsError('"%s" is an existing file')
+        elif isdir(dir_path):
+            print('Directory "%s" already exists, so not created'
+                  % dir_path, file=stderr)
+            return dir_path
         else:
             makedirs(dir_path)
             print('Created directory: "%s"' % dir_path, file=stderr)
-        return dir_path
+            return dir_path
 
     except OSError as err:
         print('[%s]' % type(err).__name__, err,
