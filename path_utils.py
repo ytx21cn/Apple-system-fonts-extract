@@ -59,13 +59,15 @@ def safe_create_file(file_path: str, overwrite: bool = False)\
                   % file_path, file=stderr)
             return file_path
         else:
-            safe_mkdir(dirname(file_path))
+            file_dir = abspath(dirname(file_path))
+            assert safe_mkdir(file_dir) is not None, \
+                'Failed to create directory "%s"' % file_dir
             with open(file_path, 'w'):
                 pass
             print('Created file "%s"' % file_path, file=stderr)
             return file_path
 
-    except OSError as err:
+    except (OSError, AssertionError) as err:
         print('[%s]' % type(err).__name__, err,
               'Failed to create file: "%s"' % file_path,
               sep='\n', file=stderr)
