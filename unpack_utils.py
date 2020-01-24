@@ -29,13 +29,16 @@ def dmg2img(dmg_file: str, output: str = None) -> str or None:
         dmg_file = abspath(str(dmg_file))
         if not isfile(dmg_file):
             raise FileNotFoundError('File "%s" does not exist' % dmg_file)
-        img_filename = splitext(basename(dmg_file))[0] + output_ext
     except (AssertionError, FileNotFoundError) as err:
         print('\n[%s]' % type(err).__name__, err, sep='\n', file=stderr)
         return None
 
-    # set proper paths
-    # handle different cases for output
+    # use the filename of the original .dmg file
+    # to set the filename of the .img file
+    img_filename = splitext(basename(dmg_file))[0] + output_ext
+
+    # set proper output path
+    # handle different cases for output path
     # if output is specified, then use it for the output file
     if output:
         output = str(output)
