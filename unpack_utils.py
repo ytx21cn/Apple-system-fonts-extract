@@ -48,7 +48,11 @@ def dmg2img(dmg_file: str, output_path: str = None) -> str or None:
         if isfile(output_path):
             if not output_path.endswith(output_ext):
                 output_with_proper_ext = splitext(output_path)[0] + output_ext
-                renames(output_path, output_with_proper_ext)
+                try:
+                    renames(output_path, output_with_proper_ext)
+                except OSError as err:
+                    print(get_err_msg(err), file=stderr)
+                    return None
                 output_path = output_with_proper_ext
         # if output is an existing directory,
         # then create the output file in that directory
@@ -61,12 +65,16 @@ def dmg2img(dmg_file: str, output_path: str = None) -> str or None:
             # then treat it as the target output file
             if output_path.endswith(output_ext):
                 output_dir = dirname(output_path)
-                safe_mkdir(output_dir)
             # otherwise, treat it as the output directory
             else:
                 output_dir = output_path
                 output_path = join(output_dir, img_filename)
-                safe_mkdir(output_dir)
+            try:
+                assert safe_mkdir(output_dir) is not None,\
+                    'Failed to create directory "%s"' % output_dir
+            except AssertionError as err:
+                print(get_err_msg(err), file=stderr)
+                return None
     # otherwise, use the filename of the .dmg
     # and change extension to .img
     else:
