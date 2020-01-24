@@ -45,10 +45,10 @@ def dmg2img(dmg_file: str, output_path: str = None) -> str or None:
                 output_with_proper_ext = splitext(output_path)[0] + output_ext
                 try:
                     renames(output_path, output_with_proper_ext)
+                    output_path = output_with_proper_ext
                 except OSError as err:
                     print(get_err_msg(err), file=stderr)
                     return None
-                output_path = output_with_proper_ext
         # if output is an existing directory,
         # then create the output file in that directory
         elif isdir(output_path):
