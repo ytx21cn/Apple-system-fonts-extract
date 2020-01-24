@@ -60,8 +60,8 @@ def safe_create_file(file_path: str, overwrite: bool = False)\
             return file_path
         else:
             safe_mkdir(dirname(file_path))
-            file = open(file_path, 'w')
-            file.close()
+            with open(file_path, 'w'):
+                pass
             print('Created file "%s"' % file_path, file=stderr)
             return file_path
 
