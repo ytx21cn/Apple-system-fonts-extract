@@ -1,5 +1,6 @@
 import subprocess as sp
 from sys import stderr
+from os import renames
 from os.path import basename, splitext, dirname, abspath,\
     isdir, isfile, join
 
@@ -37,8 +38,13 @@ def dmg2img(dmg_file: str, output: str = None):
     if output:
         output = str(output)
         # if output is an existing file, then overwrite it
+        # also set the extension to .img
         if isfile(output):
             safe_create_file(output, overwrite=True)
+            if not output.endswith(output_ext):
+                output_with_proper_ext = splitext(output)[0] + output_ext
+                renames(output, output_with_proper_ext)
+                output = output_with_proper_ext
         # if output is an existing directory,
         # then create the output file in that directory
         elif isdir(output):
