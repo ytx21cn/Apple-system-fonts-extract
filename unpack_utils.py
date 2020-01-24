@@ -10,14 +10,14 @@ from path_utils import safe_mkdir
 
 # file extraction
 
-def dmg2img(dmg_file: str, output: str = None) -> str or None:
+def dmg2img(dmg_file: str, output_path: str = None) -> str or None:
     """
     Convert dmg to img.
     Note: This function uses the "dmg2img" command in the "dmg2img" package.
     Make sure that you have "dmg2img" package installed.
 
     :param dmg_file: the .dmg file to be converted.
-    :param output: the output path / output .img file.
+    :param output_path: the output directory / output .img file.
     :return: the absolute path of the output file,
         or None if failed to convert.
     """
@@ -41,54 +41,54 @@ def dmg2img(dmg_file: str, output: str = None) -> str or None:
     # set proper output path
     # handle different cases for output path
     # if output is specified, then use it for the output file
-    if output:
-        output = str(output)
+    if output_path:
+        output_path = str(output_path)
         # if output is an existing file, then overwrite it
         # also set the extension to .img
-        if isfile(output):
-            if not output.endswith(output_ext):
-                output_with_proper_ext = splitext(output)[0] + output_ext
-                renames(output, output_with_proper_ext)
-                output = output_with_proper_ext
+        if isfile(output_path):
+            if not output_path.endswith(output_ext):
+                output_with_proper_ext = splitext(output_path)[0] + output_ext
+                renames(output_path, output_with_proper_ext)
+                output_path = output_with_proper_ext
         # if output is an existing directory,
         # then create the output file in that directory
-        elif isdir(output):
-            output_dir = output
-            output = join(output_dir, img_filename)
+        elif isdir(output_path):
+            output_dir = output_path
+            output_path = join(output_dir, img_filename)
         # otherwise, need to create the directory to hold the output file
         else:
             # if output path ends with '.img'
             # then treat it as the target output file
-            if output.endswith(output_ext):
-                output_dir = dirname(output)
+            if output_path.endswith(output_ext):
+                output_dir = dirname(output_path)
                 safe_mkdir(output_dir)
             # otherwise, treat it as the output directory
             else:
-                output_dir = output
-                output = join(output_dir, img_filename)
+                output_dir = output_path
+                output_path = join(output_dir, img_filename)
                 safe_mkdir(output_dir)
     # otherwise, use the filename of the .dmg
     # and change extension to .img
     else:
-        output = join(dirname(dmg_file), img_filename)
+        output_path = join(dirname(dmg_file), img_filename)
 
-    output = abspath(output)
+    output_path = abspath(output_path)
 
     # convert .dmg to .img
     try:
         print('\n[Converting from .dmg to .img...]',
               'Input file: "%s"' % dmg_file,
-              'Output file: "%s"' % output,
+              'Output file: "%s"' % output_path,
               sep='\n', file=stderr)
-        sp.check_call(['dmg2img', dmg_file, output])
+        sp.check_call(['dmg2img', dmg_file, output_path])
         print('\n[Conversion completed]',
-              'Output file: "%s"' % output,
+              'Output file: "%s"' % output_path,
               sep='\n', file=stderr)
-        return output
+        return output_path
 
     except (OSError, sp.SubprocessError) as err:
         print(get_err_msg(err),
-              'Failed to convert "%s" to "%s".' % (dmg_file, output),
+              'Failed to convert "%s" to "%s".' % (dmg_file, output_path),
               'Please ensure that the "dmg2img" package is installed,'
               'and both the input and output paths are valid.',
               sep='\n', file=stderr)
