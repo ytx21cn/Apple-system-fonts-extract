@@ -40,15 +40,15 @@ def dmg2img(dmg_file: str, output_path: str = None) -> str or None:
         output_path = str(output_path)
         # if output is an existing file, then overwrite it
         # also set the extension to .img
-        if isfile(output_path):
-            if not output_path.endswith(output_ext):
-                output_with_proper_ext = splitext(output_path)[0] + output_ext
-                try:
-                    renames(output_path, output_with_proper_ext)
-                    output_path = output_with_proper_ext
-                except OSError as err:
-                    print(get_err_msg(err), file=stderr)
-                    return None
+        if isfile(output_path) and not output_path.endswith(output_ext):
+            try:
+                output_with_proper_ext = splitext(output_path)[0]\
+                                         + output_ext
+                renames(output_path, output_with_proper_ext)
+                output_path = output_with_proper_ext
+            except OSError as err:
+                print(get_err_msg(err), file=stderr)
+                return None
         # if output is an existing directory,
         # then create the output file in that directory
         elif isdir(output_path):
