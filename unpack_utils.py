@@ -55,7 +55,6 @@ def dmg2img(dmg_file: str, output: str = None) -> str or None:
         elif isdir(output):
             output_dir = output
             output = join(output_dir, img_filename)
-            safe_create_file(output, overwrite=True)
         # otherwise, need to create the directory to hold the output file
         else:
             # if output path ends with '.img'
