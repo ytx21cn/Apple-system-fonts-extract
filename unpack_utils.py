@@ -9,7 +9,7 @@ from path_utils import safe_create_file, safe_mkdir
 
 # file extraction
 
-def dmg2img(dmg_file: str, output: str = None):
+def dmg2img(dmg_file: str, output: str = None) -> str or None:
     """
     Convert dmg to img.
     Note: This function uses the "dmg2img" command in the "dmg2img" package.
@@ -90,7 +90,7 @@ def dmg2img(dmg_file: str, output: str = None):
         return None
 
 
-def unpack_7z(archive: str, output_dir: str = None):
+def unpack_7z(archive: str, output_dir: str = None) -> str or None:
     """
     Unpack 7z archive.
     Note: This function uses the "7z" command in "p7zip-full" package.

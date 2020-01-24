@@ -4,7 +4,7 @@ from os.path import dirname, abspath, isfile, isdir
 from shutil import rmtree
 
 
-def safe_mkdir(dir_path: str):
+def safe_mkdir(dir_path: str) -> str or None:
     """
     Safely create a directory.
     Supports multi-level directory creation.
@@ -32,7 +32,8 @@ def safe_mkdir(dir_path: str):
         return None
 
 
-def safe_create_file(file_path: str, overwrite: bool = False):
+def safe_create_file(file_path: str, overwrite: bool = False)\
+        -> str or None:
     """
     Safely create a file.
     Supports multi-level directory creation.
@@ -68,7 +69,7 @@ def safe_create_file(file_path: str, overwrite: bool = False):
         return None
 
 
-def safe_remove(path: str):
+def safe_remove(path: str) -> str or None:
     """
     Safely remove a file / directory tree.
     :param path: the path to remove.

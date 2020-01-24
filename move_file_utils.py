@@ -5,7 +5,7 @@ from os.path import abspath, basename, join
 from path_utils import safe_mkdir
 
 
-def move_to_dir(src_file_list: list, dst_dir: str = '.'):
+def move_to_dir(src_file_list: list, dst_dir: str = '.') -> str:
     """
     Move a list of files to a specified directory
     :param src_file_list: the list of files to move
