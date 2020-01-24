@@ -1,6 +1,6 @@
 from sys import stderr
 from os import makedirs
-from os.path import dirname, abspath, isfile, isdir
+from os.path import abspath, isfile, isdir
 from shutil import rmtree
 
 from err_utils import get_err_msg
@@ -31,9 +31,8 @@ def safe_mkdir(dir_path: str) -> str or None:
             return dir_path
 
     except OSError as err:
-        print(get_err_msg(err),
-              'Failed to create directory: "%s"' % dir_path,
-              sep='\n', file=stderr)
+        print(get_err_msg(err), 'Failed to create directory: "%s"'
+              % dir_path, sep='\n', file=stderr)
         return None
 
 
