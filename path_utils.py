@@ -8,7 +8,7 @@ from err_utils import get_err_msg
 
 def check_file_exists(file: str, err_msg: str = None) -> bool:
     file = '' if file is None else abspath(str(file))
-    err_msg = 'File "%s" does not exist' if err_msg is None \
+    err_msg = 'File "%s" does not exist' % file if (err_msg is None)\
         else str(err_msg)
 
     try:

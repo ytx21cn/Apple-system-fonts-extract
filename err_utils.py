@@ -5,5 +5,5 @@ def get_err_msg(err: BaseException, break_line: bool = False) -> str:
     :param break_line: whether to put exception name and message on two lines
     :return: the error message string
     """
-    return '\n[%s]%s%s' % (type(err).__name__, '\n' if break_line else '',
-                           err)
+    return '\n[%s]%s%s' % (type(err).__name__,
+                           '\n' if break_line else ' ', err)
