@@ -16,6 +16,8 @@ def dmg2img(dmg_file: str, output_path: str = None) -> str or None:
 
     :param dmg_file: the .dmg file to be converted.
     :param output_path: the output directory / output .img file.
+        If the output directory does not exist originally,
+        then it will be created to contain the output file.
     :return: the absolute path of the output file,
         or None if failed to convert.
     """
