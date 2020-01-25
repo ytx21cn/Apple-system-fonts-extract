@@ -6,17 +6,27 @@ from shutil import rmtree
 from err_utils import get_err_msg
 
 
-def check_file_exists(file: str, err_msg: str = None) -> bool:
-    file = '' if file is None else abspath(str(file))
-    err_msg = 'File "%s" does not exist' % file if (err_msg is None)\
-        else str(err_msg)
+def check_file_exists(file_path: str, err_msg: str = None) -> bool:
+    """
+    Check if the file specified does exist.
+    Print an error message if the file does not exist.
+    :param file_path: the path of the file
+    :param err_msg: the custom error message to use
+    :return: True if file exists, False otherwise
+    """
 
     try:
-        if isfile(file):
+        file_path = '' if (file_path is None) else abspath(str(file_path))
+        if isfile(file_path):
             return True
+        elif isdir(file_path):
+            raise IsADirectoryError('"%s" is a directory')
         else:
+            err_msg = 'File "%s" does not exist' % file_path \
+                if (err_msg is None) else str(err_msg)
             raise FileNotFoundError(err_msg)
-    except FileNotFoundError as err:
+
+    except OSError as err:
         print(get_err_msg(err), file=stderr)
         return False
 
