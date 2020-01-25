@@ -1,6 +1,6 @@
 import subprocess as sp
 from sys import stderr
-from os.path import basename, splitext, dirname, abspath, join
+from os.path import basename, splitext, dirname, abspath, join, isfile
 
 from err_utils import get_err_msg
 from path_utils import check_file_exists, safe_mkdir
@@ -8,26 +8,40 @@ from path_utils import check_file_exists, safe_mkdir
 
 # file extraction
 
-def dmg2img(dmg_file: str, output_path: str = None) -> str or None:
+def dmg2img(dmg_file: str or None = None, output_path: str = None)\
+        -> str or bool or None:
     """
     Convert dmg to img.
     Note: This function uses the "dmg2img" command in the "dmg2img" package.
     Make sure that you have "dmg2img" package installed.
+    To perform a trial run, call this function without parameters.
 
     :param dmg_file: the .dmg file to be converted.
     :param output_path: the output directory / output .img file.
         If the output directory does not exist originally,
         then it will be created to contain the output file.
-    :return: the absolute path of the output file,
-        or None if failed to convert.
+    :return:
+        [Trial run] True if "dmg2img" command executes successfully,
+            False otherwise;
+        [Actual conversion] the absolute path of the output file,
+            or None if failed to convert.
     """
 
     output_ext = '.img'
+    convert_exec = 'dmg2img'
 
-    # first check existence of the .dmg file to be converted
-    dmg_file = '' if (dmg_file is None) else abspath(str(dmg_file))
-    if not check_file_exists(dmg_file):
-        return None
+    # this part is for trial run: check if "dmg2img" is installed
+    if dmg_file is None:
+        try:
+            sp.check_call(convert_exec)
+            return True
+        except OSError as err:
+            print(get_err_msg(err),
+                  'Please install the "dmg2img" package.',
+                  sep='\n', file=stderr)
+            return None
+
+    dmg_file = abspath(str(dmg_file))
 
     # use the filename of the original .dmg file
     # to set the filename of the .img file
@@ -60,9 +74,13 @@ def dmg2img(dmg_file: str, output_path: str = None) -> str or None:
               'Input file: "%s"' % dmg_file,
               'Output file: "%s"' % output_path,
               sep='\n', file=stderr)
-        if safe_mkdir(output_dir) is None:
+        if (not check_file_exists(dmg_file)) or \
+                (safe_mkdir(output_dir) is None):
             raise OSError
-        sp.check_call(['dmg2img', dmg_file, output_path], stdout=stderr)
+
+        sp.check_call([convert_exec, dmg_file, output_path],
+                      stdout=stderr)
+
         print('\n[Conversion completed]',
               'Output file: "%s"' % output_path,
               sep='\n', file=stderr)
@@ -78,24 +96,38 @@ def dmg2img(dmg_file: str, output_path: str = None) -> str or None:
         return None
 
 
-def unpack_7z(archive: str, output_dir: str = None) -> str or None:
+def unpack_7z(archive: str or None = None, output_dir: str = None)\
+        -> str or None:
     """
     Unpack 7z archive.
     Note: This function uses the "7z" command in "p7zip-full" package.
     Make sure that you have "p7zip-full" package installed.
+    To perform a trial run, call this function without parameters.
 
     :param archive: the path to the archive to be extracted.
     :param output_dir: the directory to output the extracted content.
-    :return: the absolute path of the actual output directory,
-        or None if failed to extract.
+    :return:
+        [Trial run] True if "dmg2img" command executes successfully,
+            False otherwise;
+        [Actual conversion] the absolute path of the output directory,
+            or None if failed to extract.
     """
 
-    # first check existence of archive to be extracted
-    archive = '' if (archive is None) else abspath(str(archive))
-    if not check_file_exists(archive):
-        return None
+    unpack_exec = '7z'
 
-    # set proper paths
+    # this part is for trial run: check if "p7zip-full" is installed
+    if archive is None:
+        try:
+            sp.check_call(unpack_exec)
+            return True
+        except OSError as err:
+            print(get_err_msg(err),
+                  'Please install the "p7zip-full" package.',
+                  sep='\n', file=stderr)
+            return None
+
+    # to begin unpacking the archive, first set proper paths
+    archive = abspath(str(archive))
     output_dir = str(output_dir) if output_dir else dirname(archive)
     output_dir = abspath(output_dir)
 
@@ -105,10 +137,11 @@ def unpack_7z(archive: str, output_dir: str = None) -> str or None:
               'Unpack from: "%s"' % archive,
               'Output directory: "%s"' % output_dir,
               sep='\n', file=stderr)
-        if safe_mkdir(output_dir) is None:
+        if (not check_file_exists(archive)) or \
+                (safe_mkdir(output_dir) is None):
             raise OSError
-        sp.check_call(['7z', 'x', archive, '-y', '-o%s' % output_dir],
-                      stdout=stderr)
+        sp.check_call([unpack_exec, 'x', archive, '-y',
+                       '-o%s' % output_dir], stdout=stderr)
         print('\n[Unpacking completed]',
               'Output directory: "%s"' % output_dir,
               sep='\n', file=stderr)

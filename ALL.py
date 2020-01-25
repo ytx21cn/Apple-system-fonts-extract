@@ -23,6 +23,13 @@ def main():
     2. p7zip-full - extract font files from the converted .img files
     """
 
+    # first, do the trial run
+    # to see if "dmg2img" and "p7zip" are both installed
+    dmg2img_installed = dmg2img()
+    p7zip_installed = unpack_7z()
+    if not (dmg2img_installed and p7zip_installed):
+        return -1
+
     dmg_files = glob.glob(join(dmg_path, '**/*.dmg'), recursive=True)
     for dmg_file in dmg_files:
         with TemporaryDirectory() as temp_dir:
@@ -58,4 +65,4 @@ def main():
 
 
 if __name__ == '__main__':
-    time_func(main)
+    exit(time_func(main))
