@@ -15,8 +15,9 @@ def check_file_exists(file_path: str, err_msg: str = None) -> bool:
     :return: True if file exists, False otherwise
     """
 
+    file_path = '' if (file_path is None) else abspath(str(file_path))
+
     try:
-        file_path = '' if (file_path is None) else abspath(str(file_path))
         if isfile(file_path):
             return True
         elif isdir(file_path):
