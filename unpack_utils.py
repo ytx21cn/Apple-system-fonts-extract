@@ -93,7 +93,8 @@ def dmg2img(dmg_file: str, output_path: str = None) -> str or None:
         print(get_err_msg(err),
               'Failed to convert "%s" to "%s".' % (dmg_file, output_path),
               'Please ensure that the "dmg2img" package is installed,'
-              'and both the input and output paths are valid.',
+              'both the input and output paths are valid,'
+              'and you have proper permission.',
               sep='\n', file=stderr)
         return None
 
@@ -137,6 +138,7 @@ def unpack_7z(archive: str, output_dir: str = None) -> str or None:
         print(get_err_msg(err),
               'Failed to extract file: "%s".' % archive,
               'Please ensure that the "p7zip-full" package is installed,'
-              'and both file to extract and the output directory are valid.',
+              'both the archive and the output directory are valid.'
+              'and you have proper permission.',
               sep='\n', file=stderr)
         return None
