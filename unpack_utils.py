@@ -1,11 +1,10 @@
 import subprocess as sp
 from sys import stderr
-from os import renames
-from os.path import basename, splitext, dirname, abspath,\
+from os.path import basename, splitext, dirname, abspath, normpath,\
     isdir, isfile, join
 
 from err_utils import get_err_msg
-from path_utils import check_file_exists, safe_mkdir
+from path_utils import check_file_exists, change_ext, safe_mkdir
 
 
 # file extraction
@@ -40,15 +39,9 @@ def dmg2img(dmg_file: str, output_path: str = None) -> str or None:
         output_path = str(output_path)
         # if output is an existing file, then overwrite it
         # also set the extension to .img
-        if isfile(output_path) and not output_path.endswith(output_ext):
-            try:
-                output_with_proper_ext = splitext(output_path)[0]\
-                                         + output_ext
-                renames(output_path, output_with_proper_ext)
-                output_path = output_with_proper_ext
-            except OSError as err:
-                print(get_err_msg(err), file=stderr)
-                return None
+        if isfile(output_path):
+            output_path = change_ext(output_path, output_ext,
+                                     rename_file=True)
         # if output is an existing directory,
         # then create the output file in that directory
         elif isdir(output_path):
@@ -75,7 +68,7 @@ def dmg2img(dmg_file: str, output_path: str = None) -> str or None:
     else:
         output_path = join(dirname(dmg_file), img_filename)
 
-    output_path = abspath(output_path)
+    output_path = abspath(normpath(output_path))
 
     # convert .dmg to .img
     try:
@@ -118,7 +111,7 @@ def unpack_7z(archive: str, output_dir: str = None) -> str or None:
 
     # set proper paths
     output_dir = str(output_dir) if output_dir else dirname(archive)
-    output_dir = abspath(output_dir)
+    output_dir = abspath(normpath(output_dir))
     safe_mkdir(output_dir)
 
     # unpack archive

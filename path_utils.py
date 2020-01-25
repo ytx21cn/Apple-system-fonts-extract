@@ -40,7 +40,7 @@ def change_ext(file_path: str, ext: str, rename_file: bool = False)\
     :param ext: the new extension.
     :param rename_file: Whether to rename that file if the file exists.
     :return: the absolute path of the file with new extension,
-        or None if extension is illegal.
+        or None if extension is illegal or failed to rename.
     """
 
     # set proper file path and extension
@@ -58,14 +58,15 @@ def change_ext(file_path: str, ext: str, rename_file: bool = False)\
         if not ext.startswith('.'):
             ext = '.' + ext
 
-    # rename file
+    # set new extension
     new_file_path = splitext(file_path)[0] + ext
     if rename_file:
         try:
             renames(file_path, new_file_path)
         except OSError:
-            pass
-    file_path = abspath(new_file_path)
+            print(get_err_msg(), file=stderr)
+            return None
+    file_path = abspath(normpath(new_file_path))
     return file_path
 
 
