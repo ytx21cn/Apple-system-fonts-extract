@@ -1,6 +1,6 @@
 from sys import stderr
-from os import makedirs, renames
-from os.path import abspath, normpath, isfile, isdir, splitext
+from os import makedirs
+from os.path import abspath, normpath, isfile, isdir
 from shutil import rmtree
 
 from err_utils import get_err_msg
@@ -30,44 +30,6 @@ def check_file_exists(file_path: str, err_msg: str = None) -> bool:
     except OSError as err:
         print(get_err_msg(err), file=stderr)
         return False
-
-
-def change_ext(file_path: str, ext: str, rename_file: bool = False)\
-        -> str or None:
-    """
-    Change the extension of specified file_path.
-    :param file_path: the original file path.
-    :param ext: the new extension.
-    :param rename_file: Whether to rename that file if the file exists.
-    :return: the absolute path of the file with new extension,
-        or None if extension is illegal or failed to rename.
-    """
-
-    # set proper file path and extension
-    file_path = normpath(str(file_path))
-    if ext is None:
-        ext = ''
-    else:
-        ext = str(ext)
-        try:
-            assert ext.find('/') == -1, 'Illegal extension "%s", '\
-                'extension should not contain "/"' % ext
-        except AssertionError as err:
-            print(get_err_msg(err), file=stderr)
-            return None
-        if not ext.startswith('.'):
-            ext = '.' + ext
-
-    # set new extension
-    new_file_path = splitext(file_path)[0] + ext
-    if rename_file:
-        try:
-            renames(file_path, new_file_path)
-        except OSError:
-            print(get_err_msg(), file=stderr)
-            return None
-    file_path = abspath(normpath(new_file_path))
-    return file_path
 
 
 def safe_mkdir(dir_path: str) -> str or None:

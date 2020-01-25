@@ -1,10 +1,9 @@
 import subprocess as sp
 from sys import stderr
-from os.path import basename, splitext, dirname, abspath, normpath,\
-    isdir, isfile, join
+from os.path import basename, splitext, dirname, abspath, normpath, join
 
 from err_utils import get_err_msg
-from path_utils import check_file_exists, change_ext, safe_mkdir
+from path_utils import check_file_exists, safe_mkdir
 
 
 # file extraction
@@ -33,40 +32,23 @@ def dmg2img(dmg_file: str, output_path: str = None) -> str or None:
     img_filename = splitext(basename(dmg_file))[0] + output_ext
 
     # set proper output path
-    # handle different cases for output path
-    # if output is specified, then use it for the output file
+    # if output_path is specified, then use it
+    # the output_path can either be a directory or a filename
     if output_path:
         output_path = str(output_path)
-        # if output is an existing file, then overwrite it
-        # also set the extension to .img
-        if isfile(output_path):
-            output_path = change_ext(output_path, output_ext,
-                                     rename_file=True)
-        # if output is an existing directory,
-        # then create the output file in that directory
-        elif isdir(output_path):
+        # if extension of output_path is .img
+        # then treat it as the output file
+        if splitext(output_path)[1] == output_ext:
+            output_dir = dirname(output_path)
+        # otherwise, treat output_path as the output directory
+        else:
             output_dir = output_path
             output_path = join(output_dir, img_filename)
-        # otherwise, need to create the directory to hold the output file
-        else:
-            # if output path ends with '.img'
-            # then treat it as the target output file
-            if output_path.endswith(output_ext):
-                output_dir = dirname(output_path)
-            # otherwise, treat it as the output directory
-            else:
-                output_dir = output_path
-                output_path = join(output_dir, img_filename)
-            try:
-                assert safe_mkdir(output_dir) is not None,\
-                    'Failed to create directory "%s"' % output_dir
-            except AssertionError as err:
-                print(get_err_msg(err), file=stderr)
-                return None
-    # otherwise, use the filename of the .dmg
-    # and change extension to .img
+    # if output_path is not specified
+    # then use the directory of the .dmg file as output directory
     else:
-        output_path = join(dirname(dmg_file), img_filename)
+        output_dir = dirname(dmg_file)
+        output_path = join(output_dir, img_filename)
 
     output_path = abspath(normpath(output_path))
 
@@ -76,6 +58,8 @@ def dmg2img(dmg_file: str, output_path: str = None) -> str or None:
               'Input file: "%s"' % dmg_file,
               'Output file: "%s"' % output_path,
               sep='\n', file=stderr)
+        if safe_mkdir(output_dir) is None:
+            raise OSError
         sp.check_call(['dmg2img', dmg_file, output_path], stdout=stderr)
         print('\n[Conversion completed]',
               'Output file: "%s"' % output_path,
@@ -112,7 +96,6 @@ def unpack_7z(archive: str, output_dir: str = None) -> str or None:
     # set proper paths
     output_dir = str(output_dir) if output_dir else dirname(archive)
     output_dir = abspath(normpath(output_dir))
-    safe_mkdir(output_dir)
 
     # unpack archive
     try:
@@ -120,6 +103,8 @@ def unpack_7z(archive: str, output_dir: str = None) -> str or None:
               'Unpack from: "%s"' % archive,
               'Output directory: "%s"' % output_dir,
               sep='\n', file=stderr)
+        if safe_mkdir(output_dir) is None:
+            raise OSError
         sp.check_call(['7z', 'x', archive, '-y', '-o%s' % output_dir],
                       stdout=stderr)
         print('\n[Unpacking completed]',

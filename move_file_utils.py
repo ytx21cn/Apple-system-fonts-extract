@@ -2,35 +2,33 @@ from shutil import move
 from sys import stderr
 from os.path import abspath, basename, join
 
-from err_utils import get_err_msg
 from path_utils import safe_mkdir
 
 
 def move_to_dir(src_file_list: list, dst_dir: str = '.') -> str or None:
     """
-    Move a list of files to a specified directory
-    :param src_file_list: the list of files to move
-    :param dst_dir: the destination directory to move files into
+    Move a list of files to a specified directory.
+    Existing files will be overwritten without warning.
+    :param src_file_list: the list of files to move.
+    :param dst_dir: the destination directory to move files into.
     :return: the destination directory's absolute path,
-        or None if failed to create that path
+        or None if failed to create that path.
     """
 
     dst_dir = abspath(str(dst_dir))
-    try:
-        assert safe_mkdir(dst_dir) is not None,\
-            'Failed to create directory "%s"' % dst_dir
-    except AssertionError as err:
-        print(get_err_msg(err), sep='\n', file=stderr)
-        return None
 
     num_success = 0
     num_failure = 0
     num_total = len(src_file_list)
 
     print('\n[Moving files...]',
-          'Moving %d files to "%s"' % (num_total, dst_dir),
+          'Moving %d files to directory "%s"' % (num_total, dst_dir),
           sep='\n', file=stderr)
 
+    # create directory if not existent
+    if safe_mkdir(dst_dir) is None:
+        return None
+    # move files
     for src_file in src_file_list:
         # overwrite the destination file if it already exists
         dst_file = join(dst_dir, basename(src_file))
