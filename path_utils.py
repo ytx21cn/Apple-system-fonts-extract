@@ -45,9 +45,7 @@ def safe_mkdir(dir_path: str) -> str or None:
 
     try:
         print('\n[Creating directory...]', file=stderr)
-        if isfile(dir_path):
-            raise FileExistsError('"%s" is an existing file')
-        elif isdir(dir_path):
+        if isdir(dir_path):
             print('Directory "%s" already exists, so not created'
                   % dir_path, file=stderr)
             return dir_path
