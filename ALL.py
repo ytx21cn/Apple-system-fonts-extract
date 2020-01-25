@@ -24,21 +24,23 @@ def main():
     """
 
     # first, do the trial run
-    # to see if "dmg2img" and "p7zip" are both installed
+    # to see if "dmg2img" and "p7zip" packages are both installed
+    # if either or both of them are not installed, print error messages
     dmg2img_installed = dmg2img()
     p7zip_installed = unpack_7z()
     if not (dmg2img_installed and p7zip_installed):
         return -1
 
+    # if trial run succeeded, start the conversion process
     dmg_files = glob.glob(join(dmg_path, '**/*.dmg'), recursive=True)
     for dmg_file in dmg_files:
         with TemporaryDirectory() as temp_dir:
 
-            # First, convert each dmg to img
+            # first, convert each dmg to img
             font_name = splitext(basename(dmg_file))[0]
             img_file = dmg2img(dmg_file, output_path=temp_dir)
 
-            # Then, for each .img file:
+            # then, for each .img file:
 
             # 1. unpack .img
             # then we can see a single .pkg file
