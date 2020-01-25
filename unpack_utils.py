@@ -1,6 +1,6 @@
 import subprocess as sp
 from sys import stderr
-from os.path import basename, splitext, dirname, abspath, normpath, join
+from os.path import basename, splitext, dirname, abspath, join
 
 from err_utils import get_err_msg
 from path_utils import check_file_exists, safe_mkdir
@@ -50,7 +50,7 @@ def dmg2img(dmg_file: str, output_path: str = None) -> str or None:
         output_dir = dirname(dmg_file)
         output_path = join(output_dir, img_filename)
 
-    output_path = abspath(normpath(output_path))
+    output_path = abspath(output_path)
 
     # convert .dmg to .img
     try:
@@ -95,7 +95,7 @@ def unpack_7z(archive: str, output_dir: str = None) -> str or None:
 
     # set proper paths
     output_dir = str(output_dir) if output_dir else dirname(archive)
-    output_dir = abspath(normpath(output_dir))
+    output_dir = abspath(output_dir)
 
     # unpack archive
     try:

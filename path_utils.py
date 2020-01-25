@@ -1,6 +1,6 @@
 from sys import stderr
 from os import makedirs
-from os.path import abspath, normpath, isfile, isdir
+from os.path import abspath, isfile, isdir
 from shutil import rmtree
 
 from err_utils import get_err_msg
@@ -41,7 +41,7 @@ def safe_mkdir(dir_path: str) -> str or None:
         or None if failed to create directory.
     """
 
-    dir_path = abspath(normpath(str(dir_path)))
+    dir_path = abspath(str(dir_path))
 
     try:
         print('\n[Creating directory...]', file=stderr)
@@ -67,7 +67,7 @@ def safe_remove(path: str) -> str or None:
     :return the path removed, or None if failed to remove.
     """
 
-    path = abspath(normpath(str(path)))
+    path = abspath(str(path))
 
     try:
         print('\n[Removing item...]', file=stderr)
