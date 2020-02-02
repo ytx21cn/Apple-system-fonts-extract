@@ -33,7 +33,7 @@ def dmg2img(dmg_file: str or None = None, output_path: str = None)\
     # this part is for trial run: check if "dmg2img" is installed
     if dmg_file is None:
         try:
-            sp.check_call(convert_exec)
+            sp.check_call(convert_exec, stdout=sp.DEVNULL)
             return True
         except OSError as err:
             print(get_err_msg(err),
@@ -118,7 +118,7 @@ def unpack_7z(archive: str or None = None, output_dir: str = None)\
     # this part is for trial run: check if "p7zip-full" is installed
     if archive is None:
         try:
-            sp.check_call(unpack_exec)
+            sp.check_call(unpack_exec, stdout=sp.DEVNULL)
             return True
         except OSError as err:
             print(get_err_msg(err),
