@@ -30,7 +30,7 @@ def main():
     dmg2img_installed = dmg2img()
     p7zip_installed = unpack_7z()
     if not (dmg2img_installed and p7zip_installed):
-        return -1
+        exit(-1)
 
     # if trial run succeeded, start the conversion process
     dmg_files = glob.glob(join(dmg_path, '**/*.dmg'), recursive=True)
@@ -68,4 +68,4 @@ def main():
 
 
 if __name__ == '__main__':
-    exit(main())
+    main()
