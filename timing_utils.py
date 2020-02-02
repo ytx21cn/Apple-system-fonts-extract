@@ -19,7 +19,7 @@ def time_func(func):
     def inner_func(*args, **kwargs):
 
         print('\n[Starting "%s"...]' % func_name,
-              'Timing starts.',
+              'Timing starts',
               sep='\n', file=stderr)
 
         start_time = time()
@@ -27,7 +27,7 @@ def time_func(func):
         time_elapsed = time() - start_time
 
         print('\n["%s" completed]' % func_name,
-              'Time elapsed: %.3f seconds.' % time_elapsed,
+              'Time elapsed: %.3f seconds' % time_elapsed,
               sep='\n', file=stderr)
         return result
 

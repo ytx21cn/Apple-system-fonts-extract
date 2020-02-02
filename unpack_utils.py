@@ -1,13 +1,16 @@
 import subprocess as sp
 from sys import stderr
-from os.path import basename, splitext, dirname, abspath, join, isfile
+from os.path import basename, splitext, dirname, abspath, join
 
 from err_utils import get_err_msg
 from path_utils import check_file_exists, safe_mkdir
+from timing_utils import time_func
 
 
-# file extraction
+# file extraction utilities
 
+
+@time_func
 def dmg2img(dmg_file: str or None = None, output_path: str = None)\
         -> str or bool or None:
     """
@@ -96,6 +99,7 @@ def dmg2img(dmg_file: str or None = None, output_path: str = None)\
         return None
 
 
+@time_func
 def unpack_7z(archive: str or None = None, output_dir: str = None)\
         -> str or None:
     """
