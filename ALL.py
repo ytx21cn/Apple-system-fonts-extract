@@ -8,6 +8,7 @@ from move_file_utils import move_to_dir
 from timing_utils import time_func
 
 
+@time_func
 def main():
     """
     This program extracts the Apple fonts (*.otf) from the dmg disk images.
@@ -67,4 +68,4 @@ def main():
 
 
 if __name__ == '__main__':
-    exit(time_func(main))
+    exit(main())
