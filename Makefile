@@ -1,3 +1,6 @@
+dmg_dir := dmg/
+otf_dir := otf/
+
 test_dir := 1\ 2
 test_target := $(test_dir)/test
 
@@ -6,12 +9,12 @@ test_prereq := $(call SUBST_SPACE, $(test_dir)/*)
 
 .PHONY: all
 all: $(test_dir)
-	python3 ALL.py
+	python3 ALL.py $(dmg_dir) $(otf_dir)
 
 
 .PHONY: clean
 clean:
-	python3 CLEAN.py
+	python3 CLEAN.py $(otf_dir)
 
 # Experimental section
 
