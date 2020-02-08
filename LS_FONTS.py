@@ -29,11 +29,10 @@ def main():
     base_dir = dirname(__file__)
 
     # print header
-    time_now = datetime.utcnow()
-    time_now = time_now.__str__().replace('.%d' % time_now.microsecond, '')
-    print('{:{:d}s} {:s}'
-          .format('[Modified time]', len(time_now), '[File name]'),
-          sep=' ')
+    separator = ' ' * 4
+    time_now = datetime.utcfromtimestamp(0).__str__()
+    print('{:{:d}s}{:s}{:s}'
+          .format('[Modified time]', len(time_now), separator, '[File name]'))
     print('-' * 80)
 
     # list font files and modification times
@@ -42,7 +41,7 @@ def main():
         modified_time = lstat(font_file).st_mtime
         modified_time = datetime.utcfromtimestamp(modified_time)
         font_file = relpath(font_file, start=base_dir)
-        print('%s %s' % (modified_time, font_file))
+        print('%s%s%s' % (modified_time, separator, font_file))
 
 
 if __name__ == '__main__':
