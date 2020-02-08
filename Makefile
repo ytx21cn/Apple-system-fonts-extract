@@ -3,22 +3,26 @@ PYTHON := python3
 dmg_dir := dmg/
 otf_dir := otf/
 
+otf_phony := .otf
 font_list := font_list.txt
 
-FIND_DMG := find $(dmg_dir) -type f -name *.dmg
-FIND_OTF := find $(otf_dir) -type f -name *.otf
-ESCAPE_SPACES := sed 's/ /\\ /'
-
-dmg_files := $(shell $(FIND_DMG); exit 0 | $(ESCAPE_SPACES))
-otf_files := $(shell $(FIND_OTF); exit 0 | $(ESCAPE_SPACES))
+LS_OTF := TZ=utc ls -lhog $(otf_dir)*
+otf_files_changed := $(shell $(LS_OTF) | diff -q - $(font_list) > /dev/null; echo $$?)
 
 .PHONY: all
-all: $(font_list)
+all: $(otf_phony) $(font_list)
 
-$(font_list): $(dmg_files) $(otf_files)
+.PHONY: $(otf_phony)
+$(otf_phony):
+ifneq ($(otf_files_changed), 0)
 	$(PYTHON) ALL.py $(dmg_dir) $(otf_dir)
 	@echo
-	TZ=utc $(FIND_OTF) -exec ls -lhog {} \; > $(font_list)
+endif
+
+$(font_list):
+ifneq ($(otf_files_changed), 0)
+	$(LS_OTF) > $@
+endif
 
 .PHONY: clean
 clean:
