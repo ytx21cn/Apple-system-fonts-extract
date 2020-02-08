@@ -19,6 +19,7 @@ ifneq ($(otf_files_changed), 0)
 	@echo
 endif
 
+.PHONY: $(font_list)
 $(font_list):
 ifneq ($(otf_files_changed), 0)
 	$(LS_OTF) > $@
