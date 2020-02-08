@@ -5,17 +5,16 @@ otf_dir := otf/
 
 font_list := font_list.txt
 
-LS_OTF := TZ=utc ls -lhog $(otf_dir)*
-otf_files_changed := $(shell $(LS_OTF) | diff -q - $(font_list) > /dev/null; echo $$?)
+extract_fonts := $(PYTHON) ALL.py $(dmg_dir) $(otf_dir)
+list_fonts := $(PYTHON) LS_FONTS.py $(otf_dir)
+clear_fonts := $(PYTHON) CLEAN.py $(font_list) $(otf_dir)
 
 .PHONY: all
 all:
-ifneq ($(otf_files_changed), 0)
-	$(PYTHON) ALL.py $(dmg_dir) $(otf_dir)
+	$(extract_fonts)
 	@echo
-	$(LS_OTF) > $(font_list)
-endif
+	$(list_fonts) > $(font_list)
 
 .PHONY: clean
 clean:
-	$(PYTHON) CLEAN.py $(font_list) $(otf_dir)
+	$(clear_fonts)

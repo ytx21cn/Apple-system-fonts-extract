@@ -35,13 +35,13 @@ def main():
     # command line argument check
     # set dmg and otf directories
     if len(argv) < 3:
-        print('Usage: python3 %s <dmg directory> <otf directory>' % __file__,
+        print('Usage: python3 %s <dmg directory> <fonts directory>' % __file__,
               '<dmg directory>: the directory with Apple\'s .dmg files',
-              '<otf directory>: the directory to output font files',
+              '<fonts directory>: the directory to output font files',
               sep='\n', file=stderr)
         return 1
     dmg_dir = argv[1]
-    otf_dir = argv[2]
+    fonts_dir = argv[2]
 
     # do the trial run
     # to see if "dmg2img" and "p7zip" packages are both installed
@@ -82,7 +82,7 @@ def main():
 
             # 4. move the font files from the temporary directory
             # to the target directory
-            target_dir = join(otf_dir, font_name)
+            target_dir = join(fonts_dir, font_name)
             move_to_dir(src_file_list=src_font_files, dst_dir=target_dir)
 
 
