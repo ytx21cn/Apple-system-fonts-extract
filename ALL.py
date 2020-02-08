@@ -1,11 +1,36 @@
 from glob import glob
-from os.path import basename, splitext, join
+from os.path import isfile, isdir, basename, dirname, splitext,\
+    abspath, join
 from tempfile import TemporaryDirectory
 from sys import argv, stderr
 
 from unpack_utils import dmg2img, unpack_7z
 from move_file_utils import move_to_dir
 from timing_utils import time_func
+
+
+def __check_dirs(dmg_dir, fonts_dir):
+    """
+    Check if input and output directories are valid.
+    :param dmg_dir: the directory containing Apple's .dmg files
+    :param fonts_dir: the directory to output fonts
+    :return: True if both arguments are valid directories
+        False otherwise
+    """
+
+    dmg_dir = abspath(str(dmg_dir))
+    fonts_dir = abspath(str(fonts_dir))
+
+    result = True
+    if not isdir(dmg_dir):
+        result = False
+        print('Error: "%s" is not a valid input directory (for .dmg files)'
+              % dmg_dir, file=stderr)
+    if (not isdir(dirname(fonts_dir))) or isfile(fonts_dir):
+        result = False
+        print('Error: "%s" is not a valid output directory (for font files)'
+              % fonts_dir, file=stderr)
+    return result
 
 
 @time_func
@@ -28,8 +53,8 @@ def main():
     2. p7zip-full - extract font files from the converted .img files
 
     :return 0 on success
-        1 if invalid command line arguments are specified
-        -1 if "dmg2img" or "p7zip-full" or both are not installed
+        1 if no enough command line arguments are specified
+        -1 if target directories are invalid, or if "dmg2img" or "p7zip-full" or both are not installed
     """
 
     # command line argument check
@@ -40,15 +65,18 @@ def main():
               '<fonts directory>: the directory to output font files',
               sep='\n', file=stderr)
         return 1
+    # check if input and output directories are valid
     dmg_dir = argv[1]
     fonts_dir = argv[2]
+    io_dirs_valid = __check_dirs(dmg_dir, fonts_dir)
 
     # do the trial run
-    # to see if "dmg2img" and "p7zip" packages are both installed
+    # check if "dmg2img" and "p7zip" packages are both installed
     # if either or both of them are not installed, print error messages
     dmg2img_installed = dmg2img()
     p7zip_installed = unpack_7z()
-    if not (dmg2img_installed and p7zip_installed):
+
+    if not (io_dirs_valid and dmg2img_installed and p7zip_installed):
         return -1
 
     # if trial run succeeded, start the conversion process
