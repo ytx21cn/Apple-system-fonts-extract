@@ -1,3 +1,5 @@
+PYTHON := python3
+
 dmg_dir := dmg/
 otf_dir := otf/
 
@@ -14,10 +16,10 @@ otf_files := $(shell $(FIND_OTF); exit 0 | $(ESCAPE_SPACES))
 all: $(font_list)
 
 $(font_list): $(otf_files)
-	python3 ALL.py $(dmg_dir) $(otf_dir)
+	$(PYTHON) ALL.py $(dmg_dir) $(otf_dir)
 	@echo
 	$(FIND_OTF) -exec ls {} \; > $(font_list)
 
 .PHONY: clean
 clean:
-	python3 CLEAN.py $(font_list) $(otf_dir)
+	$(PYTHON) CLEAN.py $(font_list) $(otf_dir)
