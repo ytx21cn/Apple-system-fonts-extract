@@ -15,10 +15,10 @@ otf_files := $(shell $(FIND_OTF); exit 0 | $(ESCAPE_SPACES))
 .PHONY: all
 all: $(font_list)
 
-$(font_list): $(otf_files)
+$(font_list): $(dmg_files) $(otf_files)
 	$(PYTHON) ALL.py $(dmg_dir) $(otf_dir)
 	@echo
-	$(FIND_OTF) -exec ls {} \; > $(font_list)
+	TZ=utc $(FIND_OTF) -exec ls -lhog {} \; > $(font_list)
 
 .PHONY: clean
 clean:
