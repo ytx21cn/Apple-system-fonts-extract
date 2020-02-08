@@ -7,20 +7,22 @@ from timing_utils import time_func
 @time_func
 def main():
     """
-    Remove the generated otf files.
-    The otf directory is given in the command line argument.
+    Remove the files generated from "make".
+    The files and directories to remove are given in the command line argument.
 
     :return 0 on success
         1 if command line arguments are invalid
     """
 
     if len(argv) < 2:
-        print('Usage: python3 %s <directory to remove>' % __file__,
-              file=stderr)
+        print('Usage: python3 %s <path to remove> {paths to remove ...}'
+              % __file__, file=stderr)
         return 1
 
-    otf_path = argv[1]
-    safe_remove(otf_path)
+    paths_to_remove = argv[1:]
+    for path in paths_to_remove:
+        safe_remove(path)
+
     return 0
 
 

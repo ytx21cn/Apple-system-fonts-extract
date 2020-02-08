@@ -1,5 +1,5 @@
 from sys import stderr
-from os import makedirs
+from os import makedirs, remove
 from os.path import abspath, isfile, isdir
 from shutil import rmtree
 
@@ -71,7 +71,12 @@ def safe_remove(path: str) -> str or None:
 
     try:
         print('\n[Removing item...]', file=stderr)
-        rmtree(path)
+        if isdir(path):
+            rmtree(path)
+        elif isfile(path):
+            remove(path)
+        else:
+            raise FileNotFoundError
         print('Removed item: "%s"' % path, file=stderr)
         return path
 
