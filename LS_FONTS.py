@@ -1,7 +1,8 @@
+import glob
+
 from os import lstat
 from os.path import join, relpath, abspath, dirname
 from sys import argv, stderr
-from glob import glob
 from datetime import datetime
 
 from timing_utils import time_func
@@ -22,10 +23,9 @@ def main():
 
     # get font files
     fonts_dir = argv[1]
-    font_files = glob(join(fonts_dir, '**/*.otf'), recursive=True)
+    font_files = glob.glob(join(fonts_dir, '**/*.otf'),
+                           recursive=True)
     font_files.sort()
-
-    base_dir = dirname(__file__)
 
     # print header
     separator = ' ' * 4
@@ -35,6 +35,7 @@ def main():
 
     # list font files and modification times
     print('\nListing font files in "%s"' % abspath(fonts_dir), file=stderr)
+    base_dir = dirname(__file__)
     for font_file in font_files:
         modified_time = lstat(font_file).st_mtime
         modified_time = datetime.utcfromtimestamp(modified_time)

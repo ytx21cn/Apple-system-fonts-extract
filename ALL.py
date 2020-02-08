@@ -1,4 +1,4 @@
-from glob import glob
+import glob
 from os.path import basename, splitext, join
 from tempfile import TemporaryDirectory
 from sys import argv, stderr
@@ -52,7 +52,7 @@ def main():
         return -1
 
     # if trial run succeeded, start the conversion process
-    dmg_files = glob(join(dmg_dir, '**/*.dmg'), recursive=True)
+    dmg_files = glob.glob(join(dmg_dir, '**/*.dmg'), recursive=True)
     for dmg_file in dmg_files:
         with TemporaryDirectory() as temp_dir:
             # first, convert each dmg to img
@@ -64,20 +64,20 @@ def main():
             # 1. unpack .img
             # then we can see a single .pkg file
             img_extracted_dir = unpack_7z(img_file)
-            pkg_file = glob(join(img_extracted_dir, '**/*.pkg'),
-                            recursive=True)[0]
+            pkg_file = glob.glob(join(img_extracted_dir, '**/*.pkg'),
+                                 recursive=True)[0]
 
             # 2. extract the .pkg file
             # then we can see a single "Payload~" file
             pkg_extracted_dir = unpack_7z(pkg_file)
-            payload_file = glob(join(pkg_extracted_dir, '**/Payload~'),
-                                recursive=True)[0]
+            payload_file = glob.glob(join(pkg_extracted_dir, '**/Payload~'),
+                                     recursive=True)[0]
 
             # 3. extract the "Payload~" file
             # then we can see the font files in .otf format
             src_fonts_dir = unpack_7z(payload_file)
-            src_font_files = glob(join(src_fonts_dir, '**/*.otf'),
-                                  recursive=True)
+            src_font_files = glob.glob(join(src_fonts_dir, '**/*.otf'),
+                                       recursive=True)
 
             # 4. move the font files from the temporary directory
             # to the target directory
