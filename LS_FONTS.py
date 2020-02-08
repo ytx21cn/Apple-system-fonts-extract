@@ -1,5 +1,4 @@
 from os import lstat
-from shutil import get_terminal_size
 from os.path import join, relpath, abspath, dirname
 from sys import argv, stderr
 from glob import glob
@@ -30,9 +29,8 @@ def main():
 
     # print header
     separator = ' ' * 4
-    time_now = datetime.utcfromtimestamp(0).__str__()
-    print('{:{:d}s}{:s}{:s}'
-          .format('[Modified time]', len(time_now), separator, '[File name]'))
+    ref_time = datetime.utcfromtimestamp(0).__str__()
+    print(f'{"[Modified time]":{len(ref_time)}}', '[Filename]', sep=separator)
     print('-' * 80)
 
     # list font files and modification times
