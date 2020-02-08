@@ -34,8 +34,7 @@ def main():
     print('{:{:d}s} {:s}'
           .format('[Modified time]', len(time_now), '[File name]'),
           sep=' ')
-    terminal_size = get_terminal_size()
-    print('-' * terminal_size.columns)
+    print('-' * 80)
 
     # list font files and modification times
     print('\nListing font files in "%s"' % abspath(fonts_dir), file=stderr)
