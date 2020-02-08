@@ -1,5 +1,4 @@
-import glob
-
+from glob import glob
 from os import lstat
 from os.path import join, relpath, abspath, dirname
 from sys import argv, stderr
@@ -23,8 +22,8 @@ def main():
 
     # get font files
     fonts_dir = argv[1]
-    font_files = glob.glob(join(fonts_dir, '**/*.otf'),
-                           recursive=True)
+    font_files = glob(join(fonts_dir, '**/*.otf'),
+                      recursive=True)
     font_files.sort()
 
     # print header
