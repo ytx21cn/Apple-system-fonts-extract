@@ -5,7 +5,7 @@ otf_dir := otf/
 
 font_list := font_list.txt
 
-extract_fonts := $(PYTHON) ALL.py $(dmg_dir) $(otf_dir)
+extract_fonts := $(PYTHON) MAIN.py $(dmg_dir) $(otf_dir)
 list_fonts := $(PYTHON) LS_FONTS.py $(otf_dir)
 clear_fonts := $(PYTHON) CLEAN.py $(font_list) $(otf_dir)
 
