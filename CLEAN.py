@@ -14,6 +14,7 @@ def main():
         1 if command line arguments are invalid
     """
 
+    # check command line arguments
     if len(argv) < 2:
         print('Usage: python3 %s <path to remove> {paths to remove ...}'
               % __file__, file=stderr)

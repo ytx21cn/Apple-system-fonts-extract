@@ -57,14 +57,14 @@ def main():
         -1 if target directories are invalid, or if "dmg2img" or "p7zip-full" or both are not installed
     """
 
-    # command line argument check
-    # set dmg and otf directories
+    # check command line arguments
     if len(argv) < 3:
         print('Usage: python3 %s <dmg directory> <fonts directory>' % __file__,
               '<dmg directory>: the directory with Apple\'s .dmg files',
               '<fonts directory>: the directory to output font files',
               sep='\n', file=stderr)
         return 1
+    # set dmg and otf directories
     # check if input and output directories are valid
     dmg_dir = argv[1]
     fonts_dir = argv[2]
