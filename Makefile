@@ -35,5 +35,5 @@ rm_release:
 	$(rm_release_zip)
 
 .PHONY: clean
-clean:
+clean: rm_release
 	$(clear_fonts)
