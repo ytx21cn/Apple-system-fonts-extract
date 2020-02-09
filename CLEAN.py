@@ -5,27 +5,21 @@ from timing_utils import time_func
 
 
 @time_func
-def main():
+def main(paths_to_remove: list):
     """
     Remove the files generated from "make".
     The files and directories to remove are given in the command line argument.
-
-    :return 0 on success
-        1 if command line arguments are invalid
     """
 
+    for path in paths_to_remove:
+        safe_remove(path)
+
+
+if __name__ == '__main__':
     # check command line arguments
     if len(argv) < 2:
         print('Usage: python3 %s <path to remove> {paths to remove ...}'
               % __file__, file=stderr)
-        return 1
+        exit(1)
 
-    paths_to_remove = argv[1:]
-    for path in paths_to_remove:
-        safe_remove(path)
-
-    return 0
-
-
-if __name__ == '__main__':
-    exit(main())
+    exit(main(argv[1:]))

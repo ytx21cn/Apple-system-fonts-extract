@@ -34,7 +34,7 @@ def check_dirs(dmg_dir, fonts_dir):
 
 
 @time_func
-def main():
+def main(dmg_dir: str, fonts_dir: str):
     """
     This program extracts the Apple fonts (*.otf) from the dmg disk images.
     Apple fonts:
@@ -52,22 +52,14 @@ def main():
     1. dmg2img - convert Apple .dmg files to .img files
     2. p7zip-full - extract font files from the converted .img files
 
-    :return 0 on success
-        1 if no enough command line arguments are specified
+    :return None on success
         -1 if target directories are invalid, or if "dmg2img" or "p7zip-full" or both are not installed
     """
 
-    # check command line arguments
-    if len(argv) < 3:
-        print('Usage: python3 %s <dmg directory> <fonts directory>' % __file__,
-              '<dmg directory>: the directory with Apple\'s .dmg files',
-              '<fonts directory>: the directory to output font files',
-              sep='\n', file=stderr)
-        return 1
     # set dmg and otf directories
     # check if input and output directories are valid
-    dmg_dir = argv[1]
-    fonts_dir = argv[2]
+    dmg_dir = abspath(str(dmg_dir))
+    fonts_dir = abspath(str(fonts_dir))
     io_dirs_valid = check_dirs(dmg_dir, fonts_dir)
 
     # do the trial run
@@ -114,4 +106,13 @@ def main():
 
 
 if __name__ == '__main__':
-    exit(main())
+    # check command line arguments
+    if len(argv) < 3:
+        print('Usage: python3 %s <dmg directory> <fonts directory>'
+              % __file__,
+              '<dmg directory>: the directory with Apple\'s .dmg files',
+              '<fonts directory>: the directory to output font files',
+              sep='\n', file=stderr)
+        exit(1)
+
+    exit(main(*argv[1:3]))
