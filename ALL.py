@@ -9,7 +9,7 @@ from move_file_utils import move_to_dir
 from timing_utils import time_func
 
 
-def __check_dirs(dmg_dir, fonts_dir):
+def check_dirs(dmg_dir, fonts_dir):
     """
     Check if input and output directories are valid.
     :param dmg_dir: the directory containing Apple's .dmg files
@@ -68,7 +68,7 @@ def main():
     # check if input and output directories are valid
     dmg_dir = argv[1]
     fonts_dir = argv[2]
-    io_dirs_valid = __check_dirs(dmg_dir, fonts_dir)
+    io_dirs_valid = check_dirs(dmg_dir, fonts_dir)
 
     # do the trial run
     # check if "dmg2img" and "p7zip" packages are both installed
