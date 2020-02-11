@@ -9,4 +9,6 @@ Extract apple system fonts downloaded from https://developer.apple.com/fonts/
 
 ## Commands
 * Extract fonts: `make`
+* Create zip file for all fonts: `make release`
+* Remove zip file: `make rm_release`
 * Clean up: `make clean`
