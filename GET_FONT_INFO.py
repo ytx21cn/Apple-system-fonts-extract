@@ -1,0 +1,64 @@
+# Get the information of a font file
+
+from sys import argv, stderr
+from os.path import abspath
+
+try:
+    from fontTools import ttLib
+except (ImportError, ModuleNotFoundError):
+    pkg_name = 'fonttools'
+    print('ERROR: package "%s" not installed' % pkg_name,
+          'You may install it by typing:',
+          'sudo pip3 install %s' % pkg_name,
+          sep='\n', file=stderr)
+
+
+class FontInfo:
+    """
+    This class stores the name information of a font file
+    """
+
+    def __init__(self, font_path: str):
+        # initialize font
+        self.font_path = abspath(str(font_path))
+        font = ttLib.TTFont(font_path)
+
+        # save name table information into a dictionary
+        name_table = font.get('name').names
+        self.name_table_dict = {}
+        name_table_dict = self.name_table_dict
+        for record in name_table:
+            assert record.__class__.__name__ == 'NameRecord'
+            name_id = record.nameID
+            name_table_dict[name_id] = record
+
+        # save key information
+        self.copyright = name_table_dict.get(0)
+        self.family_name = name_table_dict.get(16) \
+            or name_table_dict.get(1)
+        self.subfamily_name = name_table_dict.get(17) \
+            or name_table_dict.get(2)
+        self.postscript_name = name_table_dict.get(6)
+
+    def __str__(self):
+        return '\n'.join(['[Font Information]',
+                          'Path: "%s"' % self.font_path,
+                          'Copyright: %s' % self.copyright,
+                          'Family name: %s' % self.family_name,
+                          'Subfamily name: %s' % self.subfamily_name,
+                          'PostScript name: %s' % self.postscript_name])
+
+
+def main(font_path: str):
+    font_path = str(font_path)
+    font = FontInfo(font_path)
+    print(font)
+
+
+if __name__ == '__main__':
+    # check arguments
+    if len(argv) < 2:
+        print('Usage: python3 %s <font path>' % __file__, file=stderr)
+        exit(1)
+
+    main(argv[1])
