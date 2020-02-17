@@ -24,8 +24,8 @@ class FontInfo:
         self.font_path = font_path
         try:
             if not isfile(font_path):
-                raise FileNotFoundError('[ERROR] font file "%s"'
-                                        'does not exist')
+                raise FileNotFoundError('[ERROR] font file "%s" '
+                                        'does not exist' % font_path)
         except FileNotFoundError as err:
             print(err, file=stderr)
             exit(-1)
