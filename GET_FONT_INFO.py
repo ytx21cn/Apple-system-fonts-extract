@@ -1,7 +1,7 @@
 # Get the information of a font file
 
 from sys import argv, stderr
-from os.path import abspath
+from os.path import abspath, isfile
 
 try:
     from fontTools import ttLib
@@ -20,13 +20,17 @@ class FontInfo:
 
     def __init__(self, font_path: str):
         # initialize font
-        self.font_path = abspath(str(font_path))
+        font_path = abspath(str(font_path))
+        self.font_path = font_path
         try:
-            font = ttLib.TTFont(font_path)
-        except OSError:
-            print('[Error] Font file not found: "%s"' % self.font_path,
-                  file=stderr)
+            if not isfile(font_path):
+                raise FileNotFoundError('[ERROR] font file "%s"'
+                                        'does not exist')
+        except FileNotFoundError as err:
+            print(err, file=stderr)
             exit(-1)
+
+        font = ttLib.TTFont(font_path)
 
         # save name table information into a dictionary
         name_table = font.get('name').names
