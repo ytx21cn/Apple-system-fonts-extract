@@ -21,7 +21,12 @@ class FontInfo:
     def __init__(self, font_path: str):
         # initialize font
         self.font_path = abspath(str(font_path))
-        font = ttLib.TTFont(font_path)
+        try:
+            font = ttLib.TTFont(font_path)
+        except OSError:
+            print('[Error] Font file not found: "%s"' % self.font_path,
+                  file=stderr)
+            exit(-1)
 
         # save name table information into a dictionary
         name_table = font.get('name').names
