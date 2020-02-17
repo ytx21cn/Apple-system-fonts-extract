@@ -1,7 +1,7 @@
 # Get the information of a font file
 
 from sys import argv, stderr
-from os.path import abspath, isfile
+from os.path import abspath
 
 try:
     from fontTools import ttLib
@@ -19,35 +19,34 @@ class FontInfo:
     """
 
     def __init__(self, font_path: str):
-        # initialize font
-        font_path = abspath(str(font_path))
-        self.font_path = font_path
         try:
-            if not isfile(font_path):
-                raise FileNotFoundError('[ERROR] font file "%s" '
-                                        'does not exist' % font_path)
-        except FileNotFoundError as err:
-            print(err, file=stderr)
+            # initialize font
+            font_path = abspath(str(font_path))
+            self.font_path = font_path
+            font = ttLib.TTFont(self.font_path)
+
+            # save name table information into a dictionary
+            name_table = font.get('name').names
+            self.name_table_dict = {}
+            name_table_dict = self.name_table_dict
+            for record in name_table:
+                assert record.__class__.__name__ == 'NameRecord'
+                name_id = record.nameID
+                name_table_dict[name_id] = record
+
+            # save key information
+            # visit https://docs.microsoft.com/en-us/typography/opentype/spec/name#name-ids for the name ID codes
+            self.copyright = name_table_dict.get(0)
+            self.family_name = name_table_dict.get(16) \
+                or name_table_dict.get(1)
+            self.subfamily_name = name_table_dict.get(17) \
+                or name_table_dict.get(2)
+            self.postscript_name = name_table_dict.get(6)
+
+        except OSError:
+            print('[ERROR] font file "%s" does not exist' % font_path,
+                  file=stderr)
             exit(-1)
-
-        font = ttLib.TTFont(font_path)
-
-        # save name table information into a dictionary
-        name_table = font.get('name').names
-        self.name_table_dict = {}
-        name_table_dict = self.name_table_dict
-        for record in name_table:
-            assert record.__class__.__name__ == 'NameRecord'
-            name_id = record.nameID
-            name_table_dict[name_id] = record
-
-        # save key information
-        self.copyright = name_table_dict.get(0)
-        self.family_name = name_table_dict.get(16) \
-            or name_table_dict.get(1)
-        self.subfamily_name = name_table_dict.get(17) \
-            or name_table_dict.get(2)
-        self.postscript_name = name_table_dict.get(6)
 
     def __str__(self):
         return '\n'.join(['[Font Information]',
