@@ -4,7 +4,7 @@ from sys import argv, stderr
 from os.path import abspath
 
 try:
-    from fontTools import ttLib
+    from fontTools.ttLib import TTFont
 except (ImportError, ModuleNotFoundError):
     pkg_name = 'fonttools'
     print('ERROR: package "%s" not installed' % pkg_name,
@@ -23,7 +23,7 @@ class FontInfo:
             # initialize font
             font_path = abspath(str(font_path))
             self.font_path = font_path
-            font = ttLib.TTFont(self.font_path)
+            font = TTFont(self.font_path)
 
             # save name table information into a dictionary
             name_table = font.get('name').names
