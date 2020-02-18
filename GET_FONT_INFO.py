@@ -4,7 +4,7 @@ from sys import argv, stderr
 from os.path import abspath
 
 try:
-    from fontTools.ttLib import TTFont
+    from fontTools.ttLib import TTFont, TTLibError
 except (ImportError, ModuleNotFoundError):
     pkg_name = 'fonttools'
     print('ERROR: package "%s" not installed' % pkg_name,
@@ -50,6 +50,11 @@ class FontInfo:
 
         except OSError:
             print('[ERROR] font file "%s" does not exist' % font_path,
+                  file=stderr)
+            exit(-1)
+
+        except TTLibError:
+            print('[ERROR] file "%s" is NOT a valid font file' % font_path,
                   file=stderr)
             exit(-1)
 
