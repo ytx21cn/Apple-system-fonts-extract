@@ -25,7 +25,7 @@ class FontInfo:
             self.font_path = font_path
             font = TTFont(self.font_path)
 
-            # save name table information into a dictionary
+            # save "name" table information into a dictionary
             name_table = font.get('name').names
             self.name_table_dict = {}
             name_table_dict = self.name_table_dict
@@ -33,9 +33,8 @@ class FontInfo:
                 assert record.__class__.__name__ == 'NameRecord'
                 name_id = record.nameID
                 name_table_dict[name_id] = record
-
-            # save key information
-            # visit https://docs.microsoft.com/en-us/typography/opentype/spec/name#name-ids for the name ID codes
+            # save essential information from the "name" table
+            # for the name ID codes, visit https://docs.microsoft.com/en-us/typography/opentype/spec/name#name-ids
             self.copyright = name_table_dict.get(0)
             self.family_name = name_table_dict.get(16) \
                 or name_table_dict.get(1)
@@ -43,18 +42,28 @@ class FontInfo:
                 or name_table_dict.get(2)
             self.postscript_name = name_table_dict.get(6)
 
+            # save "OS/2" table information
+            # for the OS/2 table, visit: https://docs.microsoft.com/en-us/typography/opentype/spec/os2
+            os2_table = font.get('OS/2')
+            self.font_weight = os2_table.usWeightClass
+            self.font_width = os2_table.usWidthClass
+
         except OSError:
             print('[ERROR] font file "%s" does not exist' % font_path,
                   file=stderr)
             exit(-1)
 
     def __str__(self):
-        return '\n'.join(['[Font Information]',
-                          'Path: "%s"' % self.font_path,
-                          'Copyright: %s' % self.copyright,
-                          'Family name: %s' % self.family_name,
-                          'Subfamily name: %s' % self.subfamily_name,
-                          'PostScript name: %s' % self.postscript_name])
+        return '\n'.join([
+            '[Font Information]',
+            'Path: "%s"' % self.font_path,
+            'Copyright: %s' % self.copyright,
+            'Family name: %s' % self.family_name,
+            'Subfamily name: %s' % self.subfamily_name,
+            'PostScript name: %s' % self.postscript_name,
+            'Weight: %s' % self.font_weight,
+            'Width: %s' % self.font_width
+        ])
 
 
 def main(font_path: str):
