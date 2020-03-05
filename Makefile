@@ -16,18 +16,25 @@ rm_release_zip := $(PYTHON) CLEAN.py $(release_zip)
 suppress_stderr := 2>/dev/null
 fonts_changed := $(shell $(list_fonts) $(suppress_stderr) | diff -q - $(font_list) $(suppress_stderr); echo $$?)
 
-.PHONY: fonts
-fonts:
+main_target := fonts
+
+.PHONY: $(main_target)
+$(main_target):
 ifneq ($(fonts_changed), 0)
 	$(extract_fonts)
-	@echo
 	$(list_fonts) > $(font_list)
+	@echo
+	@echo "Written font listing to \"$(abspath $(font_list))\""
 endif
+
+.PHONY: list
+list: $(main_target)
+	$(list_fonts)
 
 .PHONY: release
 release: $(release_zip)
 
-$(release_zip): fonts
+$(release_zip): $(main_target)
 	$(create_release_zip)
 
 .PHONY: rm_release
