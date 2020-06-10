@@ -10,7 +10,7 @@ extract_fonts := $(PYTHON) MAIN.py $(dmg_dir) $(otf_dir)
 list_fonts := $(PYTHON) LS_FONTS.py $(otf_dir)
 clear_fonts := $(PYTHON) CLEAN.py $(font_list) $(otf_dir)
 
-create_release_zip := $(PYTHON) CREATE_ZIP.py $(otf_dir) $(release_zip)
+create_release_zip := $(PYTHON) CREATE_RELEASE_ZIP.py $(otf_dir) $(release_zip)
 rm_release_zip := $(PYTHON) CLEAN.py $(release_zip)
 
 suppress_stderr := 2>/dev/null
