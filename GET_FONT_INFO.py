@@ -15,7 +15,7 @@ except (ImportError, ModuleNotFoundError):
 
 class FontInfo:
     """
-    This class stores the name information of a font file
+    This class stores the name information of a font file.
     """
 
     def __init__(self, font_path: str):
