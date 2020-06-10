@@ -33,6 +33,7 @@ class FontInfo:
                 assert record.__class__.__name__ == 'NameRecord'
                 name_id = record.nameID
                 name_table_dict[name_id] = record
+
             # save essential information from the "name" table
             # for the name ID codes, visit https://docs.microsoft.com/en-us/typography/opentype/spec/name#name-ids
             self.copyright = name_table_dict.get(0)
@@ -82,5 +83,4 @@ if __name__ == '__main__':
     if len(argv) < 2:
         print('Usage: python3 %s <font path>' % __file__, file=stderr)
         exit(1)
-
     main(argv[1])
