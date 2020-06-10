@@ -2,8 +2,7 @@
 otf/
 __*
 .*
-font_list.txt
-Apple_fonts.zip
+*.zip
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
