@@ -7,29 +7,16 @@ font_list := font_list.txt
 release_zip := Apple_fonts.zip
 
 extract_fonts := $(PYTHON) MAIN.py $(dmg_dir) $(otf_dir)
-list_fonts := $(PYTHON) LS_FONTS.py $(otf_dir)
 clear_fonts := $(PYTHON) CLEAN.py $(font_list) $(otf_dir)
 
 create_release_zip := $(PYTHON) CREATE_RELEASE_ZIP.py $(otf_dir) $(release_zip)
 rm_release_zip := $(PYTHON) CLEAN.py $(release_zip)
 
-suppress_stderr := 2>/dev/null
-fonts_changed := $(shell $(list_fonts) $(suppress_stderr) | diff -q - $(font_list) $(suppress_stderr); echo $$?)
-
 main_target := fonts
 
 .PHONY: $(main_target)
 $(main_target):
-ifneq ($(fonts_changed), 0)
 	$(extract_fonts)
-	$(list_fonts) > $(font_list)
-	@echo
-	@echo "Written font listing to \"$(abspath $(font_list))\""
-endif
-
-.PHONY: list
-list: $(main_target)
-	$(list_fonts)
 
 .PHONY: release
 release: $(release_zip)
