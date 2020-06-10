@@ -6,12 +6,11 @@ def time_func(func):
     """
     NOTE: This is a decorator function.
 
-    Execute a function :param func with arguments
+    Execute a function :param func with arguments,
     and print the time it has taken.
-    Header can be customized with :param header
-    Custom messages can be customized with :param start_msg and :param end_msg
-    :param func: the function to execute
-    :return: the execution result of :param func
+
+    :param func: the function to execute.
+    :return: the inner function.
     """
 
     func_name = func.__name__
@@ -19,7 +18,7 @@ def time_func(func):
     def inner_func(*args, **kwargs):
 
         print('\n[Starting "%s"...]' % func_name,
-              'Timing starts',
+              'Timing starts.',
               sep='\n', file=stderr)
 
         start_time = time()
@@ -27,7 +26,7 @@ def time_func(func):
         time_elapsed = time() - start_time
 
         print('\n["%s" completed]' % func_name,
-              'Time elapsed: %.3f seconds' % time_elapsed,
+              'Time elapsed: %.3f seconds.' % time_elapsed,
               sep='\n', file=stderr)
         return result
 
