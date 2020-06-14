@@ -2,9 +2,9 @@ import subprocess as sp
 from sys import stderr
 from os.path import basename, splitext, dirname, abspath, join
 
-from err_utils import get_err_msg
-from path_utils import check_file_exists, safe_mkdir
-from timing_utils import time_func
+from utils.err_utils import get_err_msg
+from utils.path_utils import check_file_exists, safe_mkdir
+from utils.timing_utils import time_func
 
 
 # file extraction utilities

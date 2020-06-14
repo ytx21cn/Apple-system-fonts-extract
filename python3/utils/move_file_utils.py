@@ -2,7 +2,7 @@ from shutil import move
 from sys import stderr
 from os.path import abspath, basename, join
 
-from path_utils import safe_mkdir
+from utils.path_utils import safe_mkdir
 
 
 def move_to_dir(src_file_list: list, dst_dir: str = '.') -> str or None:

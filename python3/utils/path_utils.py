@@ -3,7 +3,7 @@ from os import makedirs, remove
 from os.path import abspath, isfile, isdir
 from shutil import rmtree
 
-from err_utils import get_err_msg
+from utils.err_utils import get_err_msg
 
 
 def check_file_exists(file_path: str, err_msg: str = None) -> bool:

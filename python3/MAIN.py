@@ -4,9 +4,9 @@ from os.path import isfile, isdir, basename, dirname, splitext,\
 from tempfile import TemporaryDirectory
 from sys import argv, stderr
 
-from unpack_utils import dmg2img, unpack_7z
-from move_file_utils import move_to_dir
-from timing_utils import time_func
+from utils.unpack_utils import dmg2img, unpack_7z
+from utils.move_file_utils import move_to_dir
+from utils.timing_utils import time_func
 
 
 def check_dirs(dmg_dir, fonts_dir):
