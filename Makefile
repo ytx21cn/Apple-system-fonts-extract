@@ -3,7 +3,7 @@ PYTHON := python3
 dmg_dir := dmg/
 otf_dir := otf/
 
-extract_fonts := $(PYTHON) python3/MAIN.py $(dmg_dir) $(otf_dir)
+extract_fonts := $(PYTHON) python3/extract_fonts.py $(dmg_dir) $(otf_dir)
 clear_fonts := -rm -rfv $(otf_dir)
 
 release_zip := Apple_fonts.zip
