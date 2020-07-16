@@ -22,26 +22,18 @@ class FontInfo:
         try:
             # initialize font
             font_path = abspath(str(font_path))
+            font = TTFont(font_path)
             self.font_path = font_path
-            font = TTFont(self.font_path)
 
-            # save "name" table information into a dictionary
-            name_table = font.get('name').names
-            self.name_table_dict = {}
-            name_table_dict = self.name_table_dict
-            for record in name_table:
-                assert record.__class__.__name__ == 'NameRecord'
-                name_id = record.nameID
-                name_table_dict[name_id] = record
+            # save "name" table
+            self.name_table = font.get('name')
 
             # save essential information from the "name" table
             # for the name ID codes, visit https://docs.microsoft.com/en-us/typography/opentype/spec/name#name-ids
-            self.copyright = name_table_dict.get(0)
-            self.family_name = name_table_dict.get(16) \
-                or name_table_dict.get(1)
-            self.subfamily_name = name_table_dict.get(17) \
-                or name_table_dict.get(2)
-            self.postscript_name = name_table_dict.get(6)
+            self.copyright = self.name_table.getDebugName(0)
+            self.family_name = self.name_table.getDebugName(16) or self.name_table.getDebugName(1)
+            self.subfamily_name = self.name_table.getDebugName(17) or self.name_table.getDebugName(2)
+            self.postscript_name = self.name_table.getDebugName(6)
 
             # save "OS/2" table information
             # for the OS/2 table, visit: https://docs.microsoft.com/en-us/typography/opentype/spec/os2
