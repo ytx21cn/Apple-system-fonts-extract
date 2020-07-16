@@ -55,8 +55,7 @@ class FontInfo:
             exit(-1)
 
         except TTLibError:
-            print('[ERROR] file "%s" is NOT a valid font file' % font_path,
-                  file=stderr)
+            print('[ERROR] file "%s" is NOT a valid font file' % font_path, file=stderr)
             exit(-1)
 
     def __str__(self):
