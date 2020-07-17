@@ -37,9 +37,9 @@ class FontInfo:
 
             # save "OS/2" table information
             # for the OS/2 table, visit: https://docs.microsoft.com/en-us/typography/opentype/spec/os2
-            os2_table = font.get('OS/2')
-            self.font_weight = os2_table.usWeightClass
-            self.font_width = os2_table.usWidthClass
+            self.os2_table = font.get('OS/2')
+            self.font_weight = self.os2_table.usWeightClass
+            self.font_width = self.os2_table.usWidthClass
 
         except OSError:
             print('[ERROR] font file "%s" does not exist' % font_path,
