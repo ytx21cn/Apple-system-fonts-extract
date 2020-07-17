@@ -42,8 +42,7 @@ class FontInfo:
             self.font_width = self.os2_table.usWidthClass
 
         except OSError:
-            print('[ERROR] font file "%s" does not exist' % font_path,
-                  file=stderr)
+            print('[ERROR] font file "%s" does not exist' % font_path, file=stderr)
             exit(-1)
 
         except TTLibError:
