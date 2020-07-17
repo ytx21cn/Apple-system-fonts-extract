@@ -1,7 +1,5 @@
-# Get the information of a font file
-
-from sys import argv, stderr
 from os.path import abspath
+from sys import stderr
 
 try:
     from fontTools.ttLib import TTFont, TTLibError
@@ -15,7 +13,7 @@ except (ImportError, ModuleNotFoundError):
 
 class FontInfo:
     """
-    This class stores the name information of a font file.
+    This class stores the basic information of a font file.
     """
 
     def __init__(self, font_path: str):
@@ -60,17 +58,3 @@ class FontInfo:
             'Weight: %s' % self.font_weight,
             'Width: %s' % self.font_width
         ])
-
-
-def main(font_path: str):
-    font_path = str(font_path)
-    font = FontInfo(font_path)
-    print(font)
-
-
-if __name__ == '__main__':
-    # check arguments
-    if len(argv) < 2:
-        print('Usage: python3 %s <font path>' % __file__, file=stderr)
-        exit(1)
-    main(argv[1])
