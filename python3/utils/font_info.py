@@ -24,27 +24,27 @@ class FontInfo:
             self.font_path = font_path
 
             # save "name" table
-            self.name_table = font.get('name')
+            self.__name_table = font.get('name')
 
             # save essential information from the "name" table
             # for the name ID codes, visit https://docs.microsoft.com/en-us/typography/opentype/spec/name#name-ids
-            self.copyright = self.name_table.getDebugName(0)
-            self.family_name = self.name_table.getDebugName(16) or self.name_table.getDebugName(1)
-            self.subfamily_name = self.name_table.getDebugName(17) or self.name_table.getDebugName(2)
-            self.postscript_name = self.name_table.getDebugName(6)
+            self.copyright = self.__name_table.getDebugName(0)
+            self.family_name = self.__name_table.getDebugName(16) or self.__name_table.getDebugName(1)
+            self.subfamily_name = self.__name_table.getDebugName(17) or self.__name_table.getDebugName(2)
+            self.postscript_name = self.__name_table.getDebugName(6)
 
             # save "OS/2" table information
             # for the OS/2 table, visit: https://docs.microsoft.com/en-us/typography/opentype/spec/os2
-            self.os2_table = font.get('OS/2')
-            self.font_weight = self.os2_table.usWeightClass
-            self.font_width = self.os2_table.usWidthClass
+            self.__os2_table = font.get('OS/2')
+            self.font_weight = self.__os2_table.usWeightClass
+            self.font_width = self.__os2_table.usWidthClass
 
         except OSError:
-            print('[ERROR] font file "%s" does not exist' % font_path, file=stderr)
+            print('[ERROR]\nfont file "%s" does not exist' % font_path, file=stderr)
             exit(-1)
 
         except TTLibError:
-            print('[ERROR] file "%s" is NOT a valid font file' % font_path, file=stderr)
+            print('[ERROR]\nfile "%s" is NOT a valid font file' % font_path, file=stderr)
             exit(-1)
 
     def __str__(self):
@@ -56,5 +56,5 @@ class FontInfo:
             'Subfamily name: %s' % self.subfamily_name,
             'PostScript name: %s' % self.postscript_name,
             'Weight: %s' % self.font_weight,
-            'Width: %s' % self.font_width
+            'Width: %s' % self.font_width,
         ])
