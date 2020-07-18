@@ -20,11 +20,11 @@ class FontInfo:
         try:
             # initialize font
             font_path = abspath(str(font_path))
-            font = TTFont(font_path)
+            self.__font = TTFont(font_path)
             self.font_path = font_path
 
             # save "name" table
-            self.__name_table = font.get('name')
+            self.__name_table = self.__font.get('name')
 
             # save essential information from the "name" table
             # for the name ID codes, visit https://docs.microsoft.com/en-us/typography/opentype/spec/name#name-ids
@@ -35,7 +35,7 @@ class FontInfo:
 
             # save "OS/2" table information
             # for the OS/2 table, visit: https://docs.microsoft.com/en-us/typography/opentype/spec/os2
-            self.__os2_table = font.get('OS/2')
+            self.__os2_table = self.__font.get('OS/2')
             self.font_weight = self.__os2_table.usWeightClass
             self.font_width = self.__os2_table.usWidthClass
 
