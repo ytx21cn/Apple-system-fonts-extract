@@ -101,7 +101,7 @@ def main(dmg_dir: str, fonts_dir: str):
             # 4. move the font files from the temporary directory
             # to the target directory
             target_dir = join(fonts_dir, font_name)
-            move_to_dir(src_file_list=src_font_files, dst_dir=target_dir)
+            move_to_dir(src_file_list=src_font_files, dest_dir=target_dir)
 
 
 if __name__ == '__main__':
