@@ -9,28 +9,27 @@ from utils.move_files import move_to_dir
 from utils.timing import time_func
 
 
-def check_dirs(dmg_dir, fonts_dir):
+def check_dirs(dmg_dir: str, fonts_dir: str) -> bool:
     """
     Check if input and output directories are valid.
-    :param dmg_dir: the directory containing Apple's .dmg files
-    :param fonts_dir: the directory to output fonts
-    :return: True if both arguments are valid directories
-        False otherwise
+    :param dmg_dir: the directory containing Apple's .dmg files.
+    :param fonts_dir: the directory to output fonts.
+    :return: True if both arguments are valid directories;
+        False otherwise.
     """
 
     dmg_dir = abspath(str(dmg_dir))
     fonts_dir = abspath(str(fonts_dir))
 
-    result = True
     if not isdir(dmg_dir):
-        result = False
-        print('Error: "%s" is not a valid input directory (for .dmg files)'
-              % dmg_dir, file=stderr)
+        print(f'Error: "{dmg_dir}" is not a valid input directory',
+              file=stderr)
+        return False
     if (not isdir(dirname(fonts_dir))) or isfile(fonts_dir):
-        result = False
-        print('Error: "%s" is not a valid output directory (for font files)'
-              % fonts_dir, file=stderr)
-    return result
+        print(f'Error: "{fonts_dir}" is not a valid output directory', file=stderr)
+        return False
+
+    return True
 
 
 @time_func
